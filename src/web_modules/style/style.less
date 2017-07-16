@@ -1,0 +1,134 @@
+@import "./../font/font";
+
+.container {
+  .header {
+    height: 118px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .logoContainer {
+      width: 1013px;
+      display: flex;
+      align-items: center;
+      .icon-logo {
+        font-size: 50px;
+        color: #E5162B;
+      }
+      .sloganContainer {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        border-left: 1px solid #595757;
+        color: #595757;
+        margin-left: 10px;
+        padding-left: 10px;
+        > p {
+          &:first-child {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            > span {
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+  }
+  .navigation {
+    height: 40px;
+    background-color: #363533;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .navInnerContainer {
+      width: 1013px;
+      height: 100%;
+      display: flex;
+      list-style: none;
+      .navItem {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: hand;
+        transition: all 0.3s;
+        &.active {
+          background-color: #D63136;
+        }
+        a {
+          color: white;
+          font-size: 15px;
+          font-weight: bold;
+          letter-spacing: 3px;
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+        }
+        &:hover {
+          background-color: #D63136;
+        }
+
+      }
+    }
+  }
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-style: italic;
+  font: 400 14px/1.5 HelveticaLight, "Helvetica Neue", "Heiti SC", "Microsoft Yahei", tahoma, arial, sans-serif;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+}

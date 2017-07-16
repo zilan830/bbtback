@@ -1,6 +1,8 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const autoprefixer = require("autoprefixer");
 module.exports = {
   entry: [
     "react-hot-loader/patch",
@@ -18,11 +20,11 @@ module.exports = {
     filename: "bundle.js",
     path: __dirname + "/dist"
   },
-  devtool: "inline-source-map",
+  devtool: "#inline-source-map",
   resolve: {
     extensions: [".js"],
     alias: {
-      web_modules: path.resolve(__dirname, "src/web_modules")
+      web_modules: path.resolve(__dirname, "src/web_modules/")
     }
   },
   module: {
@@ -38,6 +40,31 @@ module.exports = {
         loader: "source-map-loader"
       },
       {
+        test: /\.(jpg|png|gif|svg)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: { limit: 8192 }
+          }
+          // 'file-loader',
+          // 'image-webpack-loader'
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "postcss-loader"
+          }
+        ]
+      },
+      {
         test: /\.less$/,
         use: [
           {
@@ -48,13 +75,16 @@ module.exports = {
           },
           {
             loader: "less-loader"
+          },
+          {
+            loader: "postcss-loader"
           }
         ]
       }
     ]
   },
   devServer: {
-    port: 8090,
+    port: 8030,
     host: "localhost",
     contentBase: path.resolve(__dirname, "dist"),
     // 输出文件的路径
