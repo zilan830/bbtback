@@ -1,6 +1,7 @@
 import React from "react";
-import logo from "web_modules/images/logo.png";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import busIcon from "web_modules/images/icLogo.png";
+import { Row, Col } from "antd";
 
 export default class Template extends React.Component {
   constructor(props) {
@@ -70,9 +71,9 @@ export default class Template extends React.Component {
 
   render() {
     const { column } = this.state;
-    const navContent = column.map((item, index) => {
+    const navContent = column.map(item => {
       return (
-        <li
+        <Col
           key={item.key}
           className={item.selected ? "navItem active" : "navItem"}
           onClick={() => {
@@ -82,7 +83,7 @@ export default class Template extends React.Component {
           <Link to={item.path}>
             {item.name}
           </Link>
-        </li>
+        </Col>
       );
     });
     return (
@@ -91,30 +92,51 @@ export default class Template extends React.Component {
           <div className="logoContainer">
             <i className="iconfont icon-logo" />
             <div className="sloganContainer">
-              <p>
-                <span>高</span>
-                <span>端</span>
-                <span>清</span>
-                <span>洁</span>
-                <span>设</span>
-                <span>备</span>
-                <span>引</span>
-                <span>领</span>
-                <span>者</span>
-              </p>
+              <p>高 端 清 洁 设 备 引 领 者</p>
               <p>High-end Cleaning Machine Leader</p>
             </div>
           </div>
         </header>
         <nav className="navigation">
-          <ul className="navInnerContainer">
+          <Row className="navInnerContainer">
             {navContent}
-          </ul>
+          </Row>
         </nav>
         <div className="content">
           {this.props.children}
         </div>
-        <footer className="footer" />
+        <footer className="footer">
+          <Row className="footCon">
+            <Col span={12} className="footLink">
+              <Link
+                to="#/contact"
+                className="footLinkTag"
+                onClick={() => {
+                  this.onClick("contact");
+                }}
+              >
+                联系我们
+              </Link>
+              <p>
+                <span>昆山市被纳特机械设备有限公司</span>
+                <span>地址：昆山市季广北路119号</span>
+                <span>
+                  <a href="http://www.miibeian.gov.cn/" target="_blank">
+                    苏IPC备11072808
+                  </a>
+                </span>
+              </p>
+            </Col>
+            <Col span={12} className="busIcon">
+              <a
+                href="http://www.szgswljg.gov.cn/license?id=29551"
+                target="_blank"
+              >
+                <img src={busIcon} />
+              </a>
+            </Col>
+          </Row>
+        </footer>
       </div>
     );
   }

@@ -1,35 +1,28 @@
 @import "./../font/font";
 
+@borderColor: #595757;
+@wordColor: #4C4948;
+
 .container {
   .header {
     height: 118px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     .logoContainer {
-      width: 1013px;
-      display: flex;
-      align-items: center;
+      max-width: 1013px;
+      margin: 0 auto;
+      padding-top: 22px;
       .icon-logo {
         font-size: 50px;
         color: #E5162B;
       }
       .sloganContainer {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        border-left: 1px solid #595757;
+        display: inline-block;
+        border-left: 1px solid @borderColor;
         color: #595757;
         margin-left: 10px;
         padding-left: 10px;
         > p {
           &:first-child {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            > span {
-              display: flex;
-            }
+            letter-spacing: 4px;
           }
         }
       }
@@ -38,20 +31,13 @@
   .navigation {
     height: 40px;
     background-color: #363533;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     .navInnerContainer {
-      width: 1013px;
+      max-width: 1013px;
       height: 100%;
-      display: flex;
-      list-style: none;
+      margin: 0 auto;
       .navItem {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: hand;
+        float: left;
+        width: 14%;
         transition: all 0.3s;
         &.active {
           background-color: #D63136;
@@ -61,10 +47,9 @@
           font-size: 15px;
           font-weight: bold;
           letter-spacing: 3px;
-          display: flex;
-          flex: 1;
-          justify-content: center;
-          align-items: center;
+          display: inline-block;
+          line-height: 40px;
+          text-align: center;
           height: 100%;
           width: 100%;
         }
@@ -72,6 +57,45 @@
           background-color: #D63136;
         }
 
+      }
+    }
+  }
+  .footer {
+    border-top: 1px solid @borderColor;
+    margin-top: 30px;
+    padding-bottom: 40px;
+    .footCon {
+      max-width: 1013px;
+      height: 100px;
+      margin: 0 auto;
+      padding-top: 20px;
+      .footLink {
+        color: @wordColor;
+        font-size: 14px;
+        .footLinkTag {
+          text-decoration: none;
+          cursor: hand;
+          color: @wordColor;
+          line-height: 28px;
+        }
+        > p {
+          line-height: 28px;
+          > span {
+            margin-right: 10px;
+            a {
+              color: @wordColor;
+            }
+          }
+        }
+      }
+      .busIcon {
+        cursor: hand;
+        text-align: right;
+        a {
+          > img {
+            width: 50px;
+          }
+        }
       }
     }
   }
@@ -108,6 +132,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
   line-height: 1;
+  overflow-x: hidden;
 }
 
 ol, ul {
@@ -131,4 +156,17 @@ table {
 
 a {
   text-decoration: none;
+  &:focus {
+    text-decoration: none;
+  }
 }
+
+//函数
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+

@@ -18,7 +18,7 @@ export default class App extends React.Component {
         <Template>
           <Redirect to="#/home" />
           <Route path="#/home" component={Home} />
-          <Route path="#/product" component={Product} />
+          <Route path="/product" component={Product} />
           <Route path="#/company" component={Company} />
           <Route path="#/activity" component={Activity} />
           <Route path="#/contact" component={Contact} />
