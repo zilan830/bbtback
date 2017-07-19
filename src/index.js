@@ -1,6 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "babel-polyfill";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+window.matchMedia =
+  window.matchMedia ||
+  (() => {
+    return { matches: false, addListener: () => {}, removeListener: () => {} };
+  });
 
 import { AppContainer } from "react-hot-loader";
 // AppContainer 是一个 HMR 必须的包裹(wrapper)组件

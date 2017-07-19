@@ -11,7 +11,13 @@
     "react-hot-loader/babel",
     "transform-decorators-legacy",
     // 开启 React 代码的模块热替换(HMR)
-    ["import", { libraryName: "antd", style: "css" }]
+    ["import", { libraryName: "antd", style: "css" }],
+    ["transform-runtime", {
+      "helpers": false,
+      "polyfill": false,
+      "regenerator": true,
+      "moduleName": "babel-runtime"
+    }]
   ],
   // https://facebook.github.io/jest/docs/webpack.html#using-with-webpack-2
   "env": {

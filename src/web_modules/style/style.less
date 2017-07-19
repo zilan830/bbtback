@@ -3,16 +3,17 @@
 @borderColor: #595757;
 @wordColor: #4C4948;
 
+//template
 .container {
   .header {
-    height: 118px;
+    height: 100px;
     .logoContainer {
       max-width: 1013px;
       margin: 0 auto;
       padding-top: 22px;
-      .icon-logo {
-        font-size: 50px;
-        color: #E5162B;
+      .logoImg {
+        width: 130px;
+        height: auto;
       }
       .sloganContainer {
         display: inline-block;
@@ -62,7 +63,6 @@
   }
   .footer {
     border-top: 1px solid @borderColor;
-    margin-top: 30px;
     padding-bottom: 40px;
     .footCon {
       max-width: 1013px;
@@ -74,6 +74,7 @@
         font-size: 14px;
         .footLinkTag {
           text-decoration: none;
+          cursor: pointer;
           cursor: hand;
           color: @wordColor;
           line-height: 28px;
@@ -89,15 +90,98 @@
         }
       }
       .busIcon {
+        cursor: pointer;
         cursor: hand;
         text-align: right;
         a {
           > img {
             width: 50px;
+            height: auto;
           }
         }
       }
     }
+  }
+}
+
+//内容框
+.contentContainer {
+  max-width: 1013px;
+  margin: 0 auto;
+  padding: 40px 0;
+  //首页的内容框
+  .productsLinkCon {
+    .productsLinkItem {
+      position: relative;
+      > a {
+        display: block;
+        width: 85%;
+        height: 70px;
+        border: 1px solid @borderColor;
+        &.second {
+          margin: 0 auto;
+        }
+        &.last {
+          position: absolute;
+          right: 0;
+        }
+        .productsLinkContent {
+          height: 100%;
+          .productLeft {
+            height: 100%;
+            padding-left: 35px;
+            > div {
+              display: table-cell;
+              text-align: center;
+              vertical-align: middle;
+              width: 50px;
+              height: 70px;
+              > img {
+                max-width: 50px;
+              }
+            }
+          }
+          .productRight {
+            height: 100%;
+            display: table;
+            > div {
+              display: table-cell;
+              vertical-align: middle;
+              color: @wordColor;
+            }
+          }
+        }
+      }
+    }
+  }
+  //首页底部模块
+  .categoryContainer{
+    margin-top: 50px;
+    .category{
+      .title{
+        color: @wordColor;
+
+      }
+    }
+  }
+
+}
+
+//home
+.homeContainer {
+  .productsLinkCon {
+
+  }
+
+}
+
+/* For banner */
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: auto;
+  overflow: hidden;
+  > img {
+    width: 100%;
   }
 }
 

@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactStaticPlugin = require("react-static-webpack-plugin");
 // const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 module.exports = {
@@ -96,6 +97,10 @@ module.exports = {
   plugins: [
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    // new ReactStaticPlugin({
+    //   routes: './src/index.js',  // Path to routes file
+    //   template: path.resolve(__dirname, "./src/index.ejs"),    // Path to JSX template file
+    // }),
     new HtmlWebpackPlugin({
       title: "Example",
       chunksSortMode: "dependency",

@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router";
 import busIcon from "web_modules/images/icLogo.png";
 import { Row, Col } from "antd";
+import logoImg from "web_modules/images/logo.png";
 
 export default class Template extends React.Component {
   constructor(props) {
@@ -9,43 +10,43 @@ export default class Template extends React.Component {
     const column = [
       {
         name: "首页",
-        path: "#/home",
+        path: "/home",
         selected: true,
         key: "home"
       },
       {
         name: "产品展示",
-        path: "#/product",
+        path: "/product",
         selected: false,
         key: "product"
       },
       {
         name: "贝纳特",
-        path: "#/company",
+        path: "/company",
         selected: false,
         key: "company"
       },
       {
         name: "公司动态",
-        path: "#/activity",
+        path: "/activity",
         selected: false,
         key: "activity"
       },
       {
         name: "联系我们",
-        path: "#/contact",
+        path: "/contact",
         selected: false,
         key: "contact"
       },
       {
         name: "案例集锦",
-        path: "#/cases",
+        path: "/cases",
         selected: false,
         key: "cases"
       },
       {
         name: "授权服务中心",
-        path: "#/center",
+        path: "/center",
         selected: false,
         key: "center"
       }
@@ -55,8 +56,31 @@ export default class Template extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { column } = this.state;
+    const route = window.location.href;
+    column.forEach((item, index) => {
+      item.selected = false;
+    });
+    for (const item of column) {
+      if (route.indexOf(item.key) > -1) {
+        item.selected = true;
+        break;
+      }
+    }
+    // for(let i=0; i<column.length; i++){
+    //   if(route.indexOf(column[i].key) > -1){
+    //     column[i].selected = true;
+    //   }else {
+    //     column[i].selected = false;
+    //   }
+    // }
+    this.setState({
+      column
+    });
+  }
+
   onClick(key) {
-    console.log("key", key);
     const { column } = this.state;
     column.forEach((item, index) => {
       item.selected = false;
@@ -67,6 +91,18 @@ export default class Template extends React.Component {
         break;
       }
     }
+    //为了兼容ie9
+    // for(let i=0; i<column.length; i++){
+    //   if(column[i].key === key){
+    //     column[i].selected = true;
+    //   }else {
+    //     column[i].selected = false;
+    //   }
+    // }
+
+    this.setState({
+      column
+    });
   }
 
   render() {
@@ -90,7 +126,7 @@ export default class Template extends React.Component {
       <div className="container">
         <header className="header">
           <div className="logoContainer">
-            <i className="iconfont icon-logo" />
+            <img src={logoImg} className="logoImg" />
             <div className="sloganContainer">
               <p>高 端 清 洁 设 备 引 领 者</p>
               <p>High-end Cleaning Machine Leader</p>
@@ -107,7 +143,7 @@ export default class Template extends React.Component {
         </div>
         <footer className="footer">
           <Row className="footCon">
-            <Col span={12} className="footLink">
+            <Col span={20} className="footLink">
               <Link
                 to="#/contact"
                 className="footLinkTag"
@@ -127,7 +163,7 @@ export default class Template extends React.Component {
                 </span>
               </p>
             </Col>
-            <Col span={12} className="busIcon">
+            <Col span={4} className="busIcon">
               <a
                 href="http://www.szgswljg.gov.cn/license?id=29551"
                 target="_blank"

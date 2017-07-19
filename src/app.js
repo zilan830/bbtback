@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { Router, Route, hashHistory, IndexRedirect } from "react-router";
 import Template from "./template";
 import Activity from "./activity";
 import Cases from "./cases";
@@ -14,17 +14,17 @@ import "./web_modules/style/style.less";
 export default class App extends React.Component {
   render() {
     return (
-      <Router>
-        <Template>
-          <Redirect to="#/home" />
-          <Route path="#/home" component={Home} />
-          <Route path="/product" component={Product} />
-          <Route path="#/company" component={Company} />
-          <Route path="#/activity" component={Activity} />
-          <Route path="#/contact" component={Contact} />
-          <Route path="#/cases" component={Cases} />
-          <Route path="#/center" component={Center} />
-        </Template>
+      <Router history={hashHistory}>
+        <Route path="/" component={Template}>
+          <Route path="home" component={Home} />
+          <Route path="product(/:id)" component={Product} />
+          <Route path="company" component={Company} />
+          <Route path="activity" component={Activity} />
+          <Route path="contact" component={Contact} />
+          <Route path="cases" component={Cases} />
+          <Route path="center" component={Center} />
+          <IndexRedirect to="home" />
+        </Route>
       </Router>
     );
   }
