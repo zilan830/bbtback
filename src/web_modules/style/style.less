@@ -63,7 +63,7 @@
   }
   .footer {
     border-top: 1px solid @borderColor;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     .footCon {
       max-width: 1013px;
       height: 100px;
@@ -108,7 +108,11 @@
 .contentContainer {
   max-width: 1013px;
   margin: 0 auto;
-  padding: 40px 0;
+  padding: 60px 0;
+}
+
+//home
+.homeContainer {
   //首页的内容框
   .productsLinkCon {
     .productsLinkItem {
@@ -138,6 +142,7 @@
               height: 70px;
               > img {
                 max-width: 50px;
+                height: auto;
               }
             }
           }
@@ -155,24 +160,67 @@
     }
   }
   //首页底部模块
-  .categoryContainer{
-    margin-top: 50px;
-    .category{
-      .title{
+  .categoryContainer {
+    margin-top: 60px;
+    .category {
+      .title {
         color: @wordColor;
-
+        line-height: 30px;
+        font-size: 15px;
+        border-bottom: 1px solid @borderColor;
+      }
+      .categoryInner {
+        padding: 10px 0;
+        height: 100px;
+        overflow: hidden;
+        .categoryText {
+          letter-spacing: 2px;
+          color: @wordColor;
+          font-size: 12px;
+          line-height: 16px;
+        }
+        .categoryUl {
+          .categoryLi {
+            margin-top: 4px;
+            height: 24px;
+            border-bottom: 1px dashed @borderColor;
+            &:first-child {
+              margin-top: 0;
+            }
+            >span{
+              display: inline-block;
+            }
+            .categoryTime{
+              text-align: right;
+            }
+          }
+        }
+        .categoryImgCon{
+          .categoryImg{
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            overflow: hidden;
+            max-width: 178px;
+            height: 80px;
+            >img{
+              max-width: 178px;
+              height: auto;
+            }
+          }
+        }
+        .categoryImgTitle{
+          padding-left: 20px;
+          height: 100%;
+          display: table;
+          >div{
+            display: table-cell;
+            vertical-align: bottom;
+          }
+        }
       }
     }
   }
-
-}
-
-//home
-.homeContainer {
-  .productsLinkCon {
-
-  }
-
 }
 
 /* For banner */
@@ -203,7 +251,7 @@ time, mark, audio, video {
   border: 0;
   font-size: 100%;
   font-style: italic;
-  font: 400 14px/1.5 HelveticaLight, "Helvetica Neue", "Heiti SC", "Microsoft Yahei", tahoma, arial, sans-serif;
+  font: 400 14px/1.5 '\65B0\7EC6\660E\4F53   PMingLiU\65B0\7EC6\660E\4F53\7EC6\660E\4F53MingLiU\7EC6\660E\4F53   \6807\6977\4F53  DFKai-SB\6807\6977\4F53\9ED1\4F53   SimHei\9ED1\4F53\5B8B\4F53SimSun\5B8B\4F53   \65B0\5B8B\4F53NSimSun\65B0\5B8B\4F53\4EFF\5B8B   FangSong\4EFF\5B8B\6977\4F53KaiTi\6977\4F53   \4EFF\5B8B_GB2312FangSong_GB2312\4EFF\5B8B_GB2312\6977\4F53_GB2312KaiTi_GB2312\6977\4F53_GB2312 \5FAE\8F6F\6B63\9ED1\4F53   Microsoft JhengHei\5FAEx8F6F\6B63\9ED1\4F53\5FAE\8F6F\96C5\9ED1   Microsoft YaHei\5FAE\8F6F\96C5\9ED1';
   vertical-align: baseline;
   -webkit-font-smoothing: antialiased;
 }

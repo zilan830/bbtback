@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const env = process.env.NODE_ENV;
 
 module.exports = {
   entry: ["./src/index.js"],
@@ -67,6 +68,9 @@ module.exports = {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(env)
+    }),
     new HtmlWebpackPlugin({
       title: "Example",
       chunksSortMode: "dependency",

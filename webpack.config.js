@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactStaticPlugin = require("react-static-webpack-plugin");
 // const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require("autoprefixer");
+const env = process.env.NODE_ENV;
+
 module.exports = {
   entry: [
     "react-hot-loader/patch",
@@ -101,6 +103,9 @@ module.exports = {
     //   routes: './src/index.js',  // Path to routes file
     //   template: path.resolve(__dirname, "./src/index.ejs"),    // Path to JSX template file
     // }),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(env)
+    }),
     new HtmlWebpackPlugin({
       title: "Example",
       chunksSortMode: "dependency",

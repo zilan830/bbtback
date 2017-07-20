@@ -5,8 +5,101 @@ import bannerImg1 from "web_modules/images/banner.jpg";
 import machine1 from "web_modules/images/machine1.png";
 import machine2 from "web_modules/images/machine2.png";
 import machine3 from "web_modules/images/machine3.png";
+import apiList from "web_modules/api/apilist";
+import "isomorphic-fetch";
+import axios from "axios";
 
 export default class Home extends React.Component {
+  onClick() {
+    console.log("hhhhhhh");
+    // fetch('www.baidu.com').then(res => console.log(res)).catch(err => console.log('sdsdsd', err));
+
+    // apiList.testApi({"userCode":"lifuyi","password":"1111"})
+    //   .then(res => {
+    //     console.log("res",res)
+    //   }).catch(err => {
+    //   console.log("err",err)
+    // })
+
+    axios
+      .get("http://apigalen.nongfenqi.net/bank?startIndex=0&pageSize=10")
+      .then(function(response) {
+        console.log("res", response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    // And we'd call it as such:
+
+    // this.makeRequest('GET', 'http://apigalen.nongfenqi.net/bank?startIndex=0&pageSize=10', function (err, datums) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   console.log(datums);
+    // });
+
+    // this.makeRequest()
+    //   .then(res => {
+    //     console.log("res", res);
+    //   })
+  }
+
+  makeRequest = (url, data) => {
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      if (window.XDomainRequest) {
+        xhr = new XDomainRequest();
+      } else if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+      }
+      xhr.open(
+        "GET",
+        "http://apigalen.nongfenqi.net/bank?startIndex=0&pageSize=10",
+        false
+      );
+      xhr.send();
+      // console.log("ressssss",xhr.responseText.split("\n"))
+      // resolve(xhr.responseText.split("\n"));
+      const res = JSON.parse(xhr.responseText.split("\n"));
+      resolve(res);
+    });
+
+    // const hostipInfo = xhr.responseText.split("\n");
+    //
+    // console.log("hostipInfo", hostipInfo)
+
+    // let IP = false;
+    // let ipAddress;
+    // for (i = 0; hostipInfo.length >= i; i++) {
+    //   if (hostipInfo[i]) {
+    //     ipAddress = hostipInfo[i].split(":");
+    //     if (ipAddress[0] == "IP") {
+    //       IP = ipAddress[1];
+    //     }
+    //   }
+    // }
+    // return IP;
+
+    // xhr.open(method, url);
+    // xhr.onload = function () {
+    //   done(null, xhr.response);
+    // };
+    // xhr.onerror = function () {
+    //   done(xhr.response);
+    // };
+    // xhr.send();
+  };
+
+  componentDidMount() {
+    console.log("testkasdkjaldskjaslkdjalsdj");
+    const promise = new Promise((resolve, rejecr) => {
+      console.log("run promise");
+      resolve("hahaha");
+    });
+    promise.then(test => console.log(test));
+  }
+
   render() {
     return (
       <div className="homeContainer">
@@ -23,7 +116,13 @@ export default class Home extends React.Component {
         </Carousel>
         <div className="contentContainer">
           <Row className="productsLinkCon">
-            <Col span={8} className="productsLinkItem">
+            <Col
+              span={8}
+              className="productsLinkItem"
+              onClick={() => {
+                this.onClick();
+              }}
+            >
               <Link to="/product/clean">
                 <Row className="productsLinkContent">
                   <Col span={10} className="productLeft">
@@ -75,12 +174,66 @@ export default class Home extends React.Component {
               </Link>
             </Col>
           </Row>
-          <Row className="categoryContainer">
+          <Row className="categoryContainer" gutter={48}>
             <Col span={8} className="category">
               <p className="title">关于我们</p>
+              <div className="categoryInner">
+                <p className="categoryText">
+                  公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司
+                  公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司
+                </p>
+              </div>
             </Col>
-            <Col span={8} className="category" />
-            <Col span={8} className="category" />
+            <Col span={8} className="category">
+              <p className="title">新闻动态</p>
+              <div className="categoryInner">
+                <ul className="categoryUl">
+                  <li className="categoryLi">
+                    <Link className="categoryLink">
+                      <span className="categoryTile categoryText">
+                        标题标题标题标题标题标题
+                      </span>
+                      <span className="categoryTime categoryText">
+                        2017-1-1
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="categoryLi">
+                    <Link className="categoryLink">
+                      <span className="categoryTile categoryText">
+                        标题标题标题标题标题标题
+                      </span>
+                      <span className="categoryTime categoryText">
+                        2017-1-1
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="categoryLi">
+                    <Link className="categoryLink">
+                      <span className="categoryTile categoryText">
+                        标题标题标题标题标题标题
+                      </span>
+                      <span className="categoryTime categoryText">
+                        2017-1-1
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </Col>
+            <Col span={8} className="category">
+              <p className="title">案例集锦</p>
+              <Row className="categoryInner">
+                <Col span={14} className="categoryImgCon">
+                  <div className="categoryImg">
+                    <img src={bannerImg1} />
+                  </div>
+                </Col>
+                <Col span={10} className="categoryImgTitle">
+                  <div className="categoryText">公司案例集锦</div>
+                </Col>
+              </Row>
+            </Col>
           </Row>
         </div>
       </div>
