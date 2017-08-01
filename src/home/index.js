@@ -10,6 +10,11 @@ import "isomorphic-fetch";
 import axios from "axios";
 
 export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    // console.log("context",this.context)
+  }
+
   onClick() {
     console.log("hhhhhhh");
     // fetch('www.baidu.com').then(res => console.log(res)).catch(err => console.log('sdsdsd', err));
@@ -21,14 +26,24 @@ export default class Home extends React.Component {
     //   console.log("err",err)
     // })
 
-    axios
-      .get("http://apigalen.nongfenqi.net/bank?startIndex=0&pageSize=10")
-      .then(function(response) {
-        console.log("res", response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    // axios.defaults.headers.post['Content-Type'] = 'application/json';
+    // axios.defaults.headers.post['Access-Control-Allow-Origin'] = "*";
+
+    axios({
+      method: "post",
+      url: "http://47.92.123.27:8081/goods/categories/1"
+    }).then(function(response) {
+      console.log("response", response);
+    });
+
+    // axios
+    //   .post("http://47.92.123.27:8081/goods/categories/1")
+    //   .then(function(response) {
+    //     console.log("res", response);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
 
     // And we'd call it as such:
 
@@ -53,11 +68,7 @@ export default class Home extends React.Component {
       } else if (window.XMLHttpRequest) {
         xhr = new XMLHttpRequest();
       }
-      xhr.open(
-        "GET",
-        "http://apigalen.nongfenqi.net/bank?startIndex=0&pageSize=10",
-        false
-      );
+      xhr.open("GET", "http://47.92.123.27:8081/goods/categories/1", false);
       xhr.send();
       // console.log("ressssss",xhr.responseText.split("\n"))
       // resolve(xhr.responseText.split("\n"));
@@ -103,19 +114,21 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="homeContainer">
-        <Carousel autoplay>
-          <div>
-            <img src={bannerImg1} />
-          </div>
-          <div>
-            <img src={bannerImg1} />
-          </div>
-          <div>
-            <img src={bannerImg1} />
-          </div>
-        </Carousel>
+        <div className="bannerContainer">
+          <Carousel>
+            <div>
+              <img src={bannerImg1} />
+            </div>
+            <div>
+              <img src={bannerImg1} />
+            </div>
+            <div>
+              <img src={bannerImg1} />
+            </div>
+          </Carousel>
+        </div>
         <div className="contentContainer">
-          <Row className="productsLinkCon">
+          <Row className="productsLinkCon font-hei" gutter={48}>
             <Col
               span={8}
               className="productsLinkItem"
@@ -123,14 +136,14 @@ export default class Home extends React.Component {
                 this.onClick();
               }}
             >
-              <Link to="/product/clean">
+              <Link to="/productCenter/clean">
                 <Row className="productsLinkContent">
-                  <Col span={10} className="productLeft">
+                  <Col span={9} className="productLeft">
                     <div>
                       <img src={machine1} />
                     </div>
                   </Col>
-                  <Col span={14} className="productRight">
+                  <Col span={15} className="productRight">
                     <div>
                       <p>洗地机系列</p>
                       <p>cleaning machine series</p>
@@ -140,14 +153,14 @@ export default class Home extends React.Component {
               </Link>
             </Col>
             <Col span={8} className="productsLinkItem">
-              <Link to="/product/sweeper" className="second">
+              <Link to="/productCenter/sweeper" className="second">
                 <Row className="productsLinkContent">
-                  <Col span={10} className="productLeft">
+                  <Col span={9} className="productLeft">
                     <div>
-                      <img src={machine2} />
+                      <img src={machine2} style={{ maxWidth: "50px" }} />
                     </div>
                   </Col>
-                  <Col span={14} className="productRight">
+                  <Col span={15} className="productRight">
                     <div>
                       <p>扫地机系列</p>
                       <p>floor sweeper series</p>
@@ -157,14 +170,14 @@ export default class Home extends React.Component {
               </Link>
             </Col>
             <Col span={8} className="productsLinkItem">
-              <Link to="/product/polisher" className="last">
+              <Link to="/productCenter/polisher" className="last">
                 <Row className="productsLinkContent">
-                  <Col span={10} className="productLeft">
+                  <Col span={9} className="productLeft">
                     <div>
                       <img src={machine3} />
                     </div>
                   </Col>
-                  <Col span={14} className="productRight">
+                  <Col span={15} className="productRight">
                     <div>
                       <p>擦地机系列</p>
                       <p>floor polisher series</p>
@@ -178,7 +191,7 @@ export default class Home extends React.Component {
             <Col span={8} className="category">
               <p className="title">关于我们</p>
               <div className="categoryInner">
-                <p className="categoryText">
+                <p className="categoryText font-fang-song">
                   公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司
                   公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司
                 </p>
@@ -199,7 +212,7 @@ export default class Home extends React.Component {
                     </Link>
                   </li>
                   <li className="categoryLi">
-                    <Link className="categoryLink">
+                    <Link className="categoryLink font-song">
                       <span className="categoryTile categoryText">
                         标题标题标题标题标题标题
                       </span>
@@ -230,7 +243,7 @@ export default class Home extends React.Component {
                   </div>
                 </Col>
                 <Col span={10} className="categoryImgTitle">
-                  <div className="categoryText">公司案例集锦</div>
+                  <div className="categoryText font-song">公司案例集锦</div>
                 </Col>
               </Row>
             </Col>

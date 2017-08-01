@@ -4,7 +4,13 @@ import busIcon from "web_modules/images/icLogo.png";
 import { Row, Col } from "antd";
 import logoImg from "web_modules/images/logo.png";
 
-export default class Template extends React.Component {
+class Template extends React.Component {
+  // getChildContext() {
+  //   return {
+  //     router:this.context.router
+  //   };
+  // }
+
   constructor(props) {
     super(props);
     const column = [
@@ -15,10 +21,16 @@ export default class Template extends React.Component {
         key: "home"
       },
       {
-        name: "产品展示",
-        path: "/product",
+        name: "产品中心",
+        path: "/productCenter",
         selected: false,
-        key: "product"
+        key: "productCenter"
+      },
+      {
+        name: "产品服务",
+        path: "/productSever",
+        selected: false,
+        key: "productSever"
       },
       {
         name: "贝纳特",
@@ -51,12 +63,21 @@ export default class Template extends React.Component {
         key: "center"
       }
     ];
+    // if(this.context.router){
+    //   console.log("this.context.router",this.context.router)
+    // }
     this.state = {
       column
     };
   }
 
+  componentWillMount(nextProps) {
+    console.log("nextProps", nextProps);
+  }
+
   componentDidMount() {
+    const width = document.getElementById("en").clientWidth;
+
     const { column } = this.state;
     const route = window.location.href;
     column.forEach((item, index) => {
@@ -124,12 +145,22 @@ export default class Template extends React.Component {
     });
     return (
       <div className="container">
-        <header className="header">
+        <header className="header font-hei">
           <div className="logoContainer">
             <img src={logoImg} className="logoImg" />
             <div className="sloganContainer">
-              <p>高 端 清 洁 设 备 引 领 者</p>
-              <p>High-end Cleaning Machine Leader</p>
+              <p id="ch">
+                <span>高</span>
+                <span>端</span>
+                <span>清</span>
+                <span>洁</span>
+                <span>设</span>
+                <span>备</span>
+                <span>引</span>
+                <span>领</span>
+                <span>者</span>
+              </p>
+              <p id="en">High-end Cleaning Machine Leader</p>
             </div>
           </div>
         </header>
@@ -177,3 +208,13 @@ export default class Template extends React.Component {
     );
   }
 }
+
+// Template.contentType = {
+//   router: React.PropTypes.string,
+// };
+//
+// Template.childContextTypes = {
+//   router:React.PropTypes.string,
+// };
+
+export default Template;

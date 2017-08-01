@@ -7,7 +7,9 @@ import Center from "./center";
 import Company from "./company";
 import Contact from "./contact";
 import Home from "./home";
-import Product from "./products";
+import ProductCenter from "./productCenter";
+import ProductSever from "./productSever";
+import ProductDetail from "./productDetail";
 import "normalize.css";
 import "./web_modules/style/style.less";
 
@@ -17,7 +19,9 @@ export default class App extends React.Component {
       <Router history={hashHistory}>
         <Route path="/" component={Template}>
           <Route path="home" component={Home} />
-          <Route path="product(/:id)" component={Product} />
+          <Route path="productCenter(/:id)" component={ProductCenter} />
+          <Route path="productDetail(/:id)" component={ProductDetail} />
+          <Route path="productSever(/:id)" component={ProductSever} />
           <Route path="company" component={Company} />
           <Route path="activity" component={Activity} />
           <Route path="contact" component={Contact} />

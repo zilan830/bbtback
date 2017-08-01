@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactStaticPlugin = require("react-static-webpack-plugin");
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 const env = process.env.NODE_ENV;
 
@@ -43,6 +43,10 @@ module.exports = {
         loader: "source-map-loader"
       },
       {
+        test: /\.html$/,
+        loader: "html-loader?attrs[]=video:src"
+      },
+      {
         test: /\.(jpg|png|gif|svg)$/,
         use: [
           {
@@ -52,6 +56,10 @@ module.exports = {
           // 'file-loader',
           // 'image-webpack-loader'
         ]
+      },
+      {
+        test: /\.mp4$/,
+        loader: "url-loader?limit=10000&mimetype=video/mp4"
       },
       {
         test: /\.css$/,
@@ -82,6 +90,11 @@ module.exports = {
           {
             loader: "postcss-loader"
           }
+          // {
+          //   loader: ExtractTextPlugin.extract('css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!' +
+          //     'postcss!' +
+          //     `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`)
+          // }
         ]
       }
     ]
