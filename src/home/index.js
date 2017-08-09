@@ -5,10 +5,14 @@ import bannerImg1 from "web_modules/images/banner.jpg";
 import machine1 from "web_modules/images/machine1.png";
 import machine2 from "web_modules/images/machine2.png";
 import machine3 from "web_modules/images/machine3.png";
+import dataHoc from "web_modules/component/datas";
 import apiList from "web_modules/api/apilist";
 import "isomorphic-fetch";
 import axios from "axios";
 
+@dataHoc({ url: "/goods/categories/1" }, response => {
+  return { data: response };
+})
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -16,102 +20,18 @@ export default class Home extends React.Component {
   }
 
   onClick() {
-    console.log("hhhhhhh");
-    // fetch('www.baidu.com').then(res => console.log(res)).catch(err => console.log('sdsdsd', err));
-
-    // apiList.testApi({"userCode":"lifuyi","password":"1111"})
-    //   .then(res => {
-    //     console.log("res",res)
-    //   }).catch(err => {
-    //   console.log("err",err)
-    // })
-
-    // axios.defaults.headers.post['Content-Type'] = 'application/json';
-    // axios.defaults.headers.post['Access-Control-Allow-Origin'] = "*";
-
-    axios({
-      method: "post",
-      url: "http://47.92.123.27:8081/goods/categories/1"
-    }).then(function(response) {
-      console.log("response", response);
-    });
-
-    // axios
-    //   .post("http://47.92.123.27:8081/goods/categories/1")
-    //   .then(function(response) {
-    //     console.log("res", response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
-
-    // And we'd call it as such:
-
-    // this.makeRequest('GET', 'http://apigalen.nongfenqi.net/bank?startIndex=0&pageSize=10', function (err, datums) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    //   console.log(datums);
+    // axios({
+    //   method: "post",
+    //   url: "http://47.92.123.27:80/goods/categories/1"
+    // }).then(function(response) {
+    //   console.log("response", response);
     // });
-
-    // this.makeRequest()
-    //   .then(res => {
-    //     console.log("res", res);
-    //   })
   }
 
-  makeRequest = (url, data) => {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      if (window.XDomainRequest) {
-        xhr = new XDomainRequest();
-      } else if (window.XMLHttpRequest) {
-        xhr = new XMLHttpRequest();
-      }
-      xhr.open("GET", "http://47.92.123.27:8081/goods/categories/1", false);
-      xhr.send();
-      // console.log("ressssss",xhr.responseText.split("\n"))
-      // resolve(xhr.responseText.split("\n"));
-      const res = JSON.parse(xhr.responseText.split("\n"));
-      resolve(res);
-    });
-
-    // const hostipInfo = xhr.responseText.split("\n");
-    //
-    // console.log("hostipInfo", hostipInfo)
-
-    // let IP = false;
-    // let ipAddress;
-    // for (i = 0; hostipInfo.length >= i; i++) {
-    //   if (hostipInfo[i]) {
-    //     ipAddress = hostipInfo[i].split(":");
-    //     if (ipAddress[0] == "IP") {
-    //       IP = ipAddress[1];
-    //     }
-    //   }
-    // }
-    // return IP;
-
-    // xhr.open(method, url);
-    // xhr.onload = function () {
-    //   done(null, xhr.response);
-    // };
-    // xhr.onerror = function () {
-    //   done(xhr.response);
-    // };
-    // xhr.send();
-  };
-
-  componentDidMount() {
-    console.log("testkasdkjaldskjaslkdjalsdj");
-    const promise = new Promise((resolve, rejecr) => {
-      console.log("run promise");
-      resolve("hahaha");
-    });
-    promise.then(test => console.log(test));
-  }
+  componentDidMount() {}
 
   render() {
+    console.log("data========", this.props.data);
     return (
       <div className="homeContainer">
         <div className="bannerContainer">

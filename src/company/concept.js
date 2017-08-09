@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import circleImg from "web_modules/images/10.png";
 import bottomImg from "web_modules/images/11.png";
 
-export default class About extends React.Component {
+export default class Concept extends React.Component {
   render() {
     return (
       <div>

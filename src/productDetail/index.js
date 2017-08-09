@@ -151,7 +151,7 @@ export default class ProductDetail extends React.Component {
               <Col span={8} className="productItem">
                 扫地机系列
                 <Row className="productDetCon">
-                  <span className="productDetItem active">Smart 系列洗地机</span>
+                  <span className="productDetItem">Smart 系列洗地机</span>
                   <span className="productDetItem">Clever 系列洗地机</span>
                   <span className="productDetItem">Ranger 系列洗地机</span>
                   <span className="productDetItem">Hussar 系列洗地机</span>
@@ -161,7 +161,7 @@ export default class ProductDetail extends React.Component {
               <Col span={8} className="productItem">
                 擦地机系列
                 <Row className="productDetCon">
-                  <span className="productDetItem active">Smart 系列洗地机</span>
+                  <span className="productDetItem">Smart 系列洗地机</span>
                   <span className="productDetItem">Clever 系列洗地机</span>
                   <span className="productDetItem">Ranger 系列洗地机</span>
                   <span className="productDetItem">Hussar 系列洗地机</span>

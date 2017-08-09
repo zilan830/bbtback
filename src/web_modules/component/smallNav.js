@@ -1,41 +1,6 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-// const navColumn = [
-//   {
-//     key: 1,
-//     name: "关于我们",
-//     selected: true,
-//     children: [
-//       {
-//         key: 10,
-//         name: "公司简介",
-//         selected: true,
-//       },
-//       {
-//         key: 11,
-//         name: "产品发展史"
-//       }
-//     ]
-//   },
-//   {
-//     key: 2,
-//     name: "企业理念",
-//     children: [
-//       {
-//         key: 20,
-//         name: "公司简介"
-//       },
-//       {
-//         key: 21,
-//         name: "产品发展史"
-//       }
-//     ]
-//   }
-// ];
-
-// const breadColumn = ["贝纳特", "关于我们", "公司简介"];
-
 export default class SmallNav extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +19,7 @@ export default class SmallNav extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.navColumn !== this.porps.navColumn) {
+    if (props.navColumn !== this.props.navColumn) {
       const navColumn = props.navColumn;
       this.setState({
         navColumn
@@ -62,11 +27,10 @@ export default class SmallNav extends React.Component {
     }
   }
 
-  onClick = key => {
+  onClick = (key, component) => {
     let newKey = String(key);
     newKey = parseInt(newKey.slice(0, 1));
     const { navColumn, breadColumn } = this.state;
-
     navColumn.forEach(items => {
       items.selected = false;
       if (items.children) {
@@ -95,6 +59,12 @@ export default class SmallNav extends React.Component {
       }
     }
 
+    if (breadColumn[0] === breadColumn[1]) {
+      breadColumn.shift();
+    }
+
+    this.props.change(component);
+
     this.setState({
       navColumn,
       breadColumn
@@ -113,16 +83,16 @@ export default class SmallNav extends React.Component {
               item.selected ? "productDetItem active" : "productDetItem"
             }
             onClick={() => {
-              this.onClick(item.key);
+              this.onClick(item.key, item.component);
             }}
           >
             {item.name}
           </span>
         );
         itemList = (
-          <Row key={`${items.key}Row`} className="productDetCon">
+          <div key={`${items.key}Row`} className="productDetCon">
             {itemList}
-          </Row>
+          </div>
         );
         navContent.push(
           <Col
@@ -143,7 +113,7 @@ export default class SmallNav extends React.Component {
             span={items.span}
             className={items.selected ? "productItem active" : "productItem"}
             onClick={() => {
-              this.onClick(items.key);
+              this.onClick(items.key, items.component);
             }}
           >
             {items.name}
