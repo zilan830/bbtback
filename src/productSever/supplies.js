@@ -116,19 +116,292 @@ const bjColumn = [
     type: "",
     size: "13寸",
     auto: "Hussar 660B、Ranger 660B、Clever 660BT"
+  },
+  {
+    photo: bj2,
+    type: "",
+    size: "15寸",
+    auto: "Hussar 760B"
+  },
+  {
+    photo: bj3,
+    type: "",
+    size: "17寸",
+    auto: "Hussar 860B、Smart 450B、Smart 450E"
+  },
+  {
+    photo: bj3,
+    type: "",
+    size: "20寸",
+    auto: "Ranger 510B、Smart 510B、Clever 510B、Clever 510E、Clever 510BT"
   }
 ];
 
-const spColumn = [];
-const xdColumn = [];
-const jtColumn = [];
-const xsColumn = [];
-const sbColumn = [];
-const zpColumn = [];
-const hcColumn = [];
-const dsColumn = [];
-const tsColumn = [];
-const lzColumn = [];
+const spColumn = [
+  {
+    photo: sp1,
+    type: "700121",
+    size: "650W",
+    auto: "Smart 450B、Smart 510B、Clever 510B、Clever 510BT、Ranger 510B"
+  },
+  {
+    photo: sp2,
+    type: "700251,700241",
+    size: "400W",
+    auto: "Clever 660BT、Ranger 660B、Hussar 660B、Hussar 760B、Hussar 860B"
+  }
+];
+const xdColumn = [
+  {
+    photo: xd1,
+    type: "242071",
+    size: "13寸",
+    auto: "Hussar 660B、Ranger 660B、Clever 660BT"
+  },
+  {
+    photo: xd2,
+    type: "242081",
+    size: "15寸",
+    auto: "Hussar 760B"
+  },
+  {
+    photo: xd3,
+    type: "242091",
+    size: "17寸",
+    auto: "Hussar 860B"
+  },
+  {
+    photo: xd4,
+    type: "805653",
+    size: "17寸",
+    auto: "Smart 450B、Smart 450E"
+  },
+  {
+    photo: xd5,
+    type: "242041",
+    size: "20寸",
+    auto: "Ranger 510B、Smart 510B、Clever 510B、Clever 510E、Clever 510BT"
+  }
+];
+const jtColumn = [
+  {
+    photo: jt1,
+    type: "880753/880752/880750",
+    size: "前/中/后",
+    property: "普通",
+    auto: "Smart 450B"
+  },
+  {
+    photo: jt2,
+    type: "880753/880751/880750",
+    size: "前/中/后",
+    property: "耐油",
+    auto: "Smart 450B"
+  },
+  {
+    photo: jt3,
+    type: "880753/250241/880750",
+    size: "前/中/后",
+    property: "普通",
+    auto: "Smart 510B、Clever 510B、Clever 510BT"
+  },
+  {
+    photo: jt4,
+    type: "880753/250231/880750",
+    size: "前/中/后",
+    property: "耐油",
+    auto: "Smart 510B、Clever 510B、Clever 510BT"
+  },
+  {
+    photo: jt5,
+    type: "860706/050201/860707",
+    size: "前/中/后",
+    property: "普通",
+    auto: "Clever 660BT"
+  },
+  {
+    photo: jt6,
+    type: "860706/250321/860707",
+    size: "前/中/后",
+    property: "耐油",
+    auto: "Clever 660BT"
+  },
+  {
+    photo: jt7,
+    type: "250341/250351",
+    size: "前/后",
+    property: "普通",
+    auto: "Ranger 660B,510B"
+  },
+  {
+    photo: jt8,
+    type: "250341/250361",
+    size: "前/后",
+    property: "耐油",
+    auto: "Ranger 660B,510B"
+  },
+  {
+    photo: jt9,
+    type: "250381/250391",
+    size: "前/后",
+    property: "普通",
+    auto: "Hussar 660,760,860"
+  },
+  {
+    photo: jt10,
+    type: "250381/250401",
+    size: "前/后",
+    property: "耐油",
+    auto: "Hussar 660,760,860"
+  }
+];
+const xsColumn = [
+  {
+    photo: xs1,
+    type: "700131",
+    size: "",
+    auto: "Smart 450B、Smart 510B"
+  },
+  {
+    photo: xs2,
+    type: "700151",
+    size: "",
+    auto: "Clever 510B、Clever 510BT、Clever660BT"
+  },
+  {
+    photo: xs3,
+    type: "700261",
+    size: "",
+    auto: "Ranger 510B、Ranger 660B、Hussar 660B、Hussar 760B、Hussar 860B"
+  }
+];
+const sbColumn = [
+  {
+    photo: sb1,
+    type: "210021",
+    size: "",
+    auto: "PX-170N、PX-200N、PX-170DS、PX-170、PX-170G、PX-200、HPX-1500"
+  },
+  {
+    photo: sb2,
+    type: "210111",
+    size: "",
+    auto: "SPX-170N.SPX-170W、SPX-170DS.SPX-170"
+  }
+];
+const zpColumn = [
+  {
+    photo: zp1,
+    type: "240091",
+    size: "13寸",
+    auto: "Hussar 660B、Ranger 660B、Clever 660BT"
+  },
+  {
+    photo: zp2,
+    type: "240101",
+    size: "15寸",
+    auto: "Hussar 760B"
+  },
+  {
+    photo: zp3,
+    type: "240111",
+    size: "17寸",
+    auto: "Hussar 860B"
+  },
+  {
+    photo: zp4,
+    type: "240061",
+    size: "17寸",
+    auto: "Smart 450B、Smart 450E"
+  },
+  {
+    photo: zp5,
+    type: "240071",
+    size: "20寸",
+    auto: "Ranger 510B、Smart 510B、Clever 510B、Clever 510E、Clever 510BT"
+  },
+  {
+    photo: zp6,
+    type: "240041",
+    size: "17寸",
+    auto: "PX-170N、PX-170DS、PX-170、PX-170G、SPX-170N、SPX-170W、SPX-170DS、SPX-170"
+  },
+  {
+    photo: zp7,
+    type: "240051",
+    size: "20寸",
+    auto: "PX-200N、PX-200"
+  },
+  {
+    photo: zp8,
+    type: "240011",
+    size: "21寸",
+    auto: "HPX-1500"
+  }
+];
+const hcColumn = [
+  {
+    photo: hc1,
+    type: "250011",
+    size: "17寸",
+    auto: "PX-170N、PX-170DS、PX-170、PX-170G"
+  },
+  {
+    photo: hc1,
+    type: "250061",
+    size: "17寸",
+    auto: "SPX-170N、SPX-170W、SPX-170DS、SPX-170"
+  },
+  {
+    photo: hc1,
+    type: "250021",
+    size: "20寸",
+    auto: "PX-200N、PX-200"
+  },
+  {
+    photo: hc1,
+    type: "250081",
+    size: "21寸",
+    auto: "HPX-1500"
+  }
+];
+const dsColumn = [
+  {
+    photo: ds1,
+    type: "242011",
+    size: "17寸",
+    auto: "PX-170N、PX-170DS、PX-170、PX-170G、SPX-170N、SPX-170W、SPX-170DS、SPX-170"
+  },
+  {
+    photo: ds2,
+    type: "242021",
+    size: "20寸",
+    auto: "PX-200N、PX-200"
+  }
+];
+const tsColumn = [
+  {
+    photo: ts1,
+    type: "242012",
+    size: "17寸",
+    auto: "PX-170N、SPX-170N、SPX-170W、SPX-170"
+  }
+];
+const lzColumn = [
+  {
+    photo: lz1,
+    type: "250091",
+    size: "4寸",
+    auto: "HPX-1500"
+  },
+  {
+    photo: lz2,
+    type: "250051",
+    size: "5寸",
+    auto:
+      "PX-170N、PX-200、PX-170DS、PX-170、PX-170G、PX-200、PX-170G、SPX-170N、SPX-170W、SPX-170DS、SPX-170、HPX-1500"
+  }
+];
 
 export default class Supplies extends React.Component {
   constructor(props) {
