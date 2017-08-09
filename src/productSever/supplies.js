@@ -292,18 +292,48 @@ const sbColumn = [
 const zpColumn = [
   {
     photo: zp1,
+    type: "240091",
+    size: "13寸",
+    auto: "Hussar 660B、Ranger 660B、Clever 660BT"
+  },
+  {
+    photo: zp2,
+    type: "240101",
+    size: "15寸",
+    auto: "Hussar 760B"
+  },
+  {
+    photo: zp3,
+    type: "240111",
+    size: "17寸",
+    auto: "Hussar 860B"
+  },
+  {
+    photo: zp4,
+    type: "240061",
+    size: "17寸",
+    auto: "Smart 450B、Smart 450E"
+  },
+  {
+    photo: zp5,
+    type: "240071",
+    size: "20寸",
+    auto: "Ranger 510B、Smart 510B、Clever 510B、Clever 510E、Clever 510BT"
+  },
+  {
+    photo: zp6,
     type: "240041",
     size: "17寸",
     auto: "PX-170N、PX-170DS、PX-170、PX-170G、SPX-170N、SPX-170W、SPX-170DS、SPX-170"
   },
   {
-    photo: zp2,
+    photo: zp7,
     type: "240051",
     size: "20寸",
     auto: "PX-200N、PX-200"
   },
   {
-    photo: zp3,
+    photo: zp8,
     type: "240011",
     size: "21寸",
     auto: "HPX-1500"
