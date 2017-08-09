@@ -1,9 +1,9 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ReactStaticPlugin = require("react-static-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const autoprefixer = require("autoprefixer");
+// const ReactStaticPlugin = require("react-static-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const autoprefixer = require("autoprefixer");
 const env = process.env.NODE_ENV;
 
 module.exports = {
