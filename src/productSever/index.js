@@ -77,7 +77,7 @@ const navColumn = [
       },
       {
         key: 33,
-        name: "hussar系列",
+        name: "Hussar系列",
         component: "WarrantyHussar"
       },
       {

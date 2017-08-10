@@ -461,6 +461,8 @@ export default class Supplies extends React.Component {
       case "lz":
         contentColumn = lzColumn;
         break;
+      default:
+        break;
     }
 
     this.setState({
@@ -514,6 +516,11 @@ export default class Supplies extends React.Component {
           <td>
             {item.size}
           </td>
+          {item.hasOwnProperty("property")
+            ? <td>
+                {item.property}
+              </td>
+            : null}
           <td>
             {item.auto}
           </td>
@@ -533,7 +540,10 @@ export default class Supplies extends React.Component {
             <tr>
               <th>照片</th>
               <th>产品零件号</th>
-              <th>尺寸</th>
+              <th>
+                {contentColumn === jtColumn ? "位置" : "尺寸"}
+              </th>
+              {contentColumn === jtColumn ? <th>性能</th> : null}
               <th>适用机型</th>
             </tr>
             {trContent}

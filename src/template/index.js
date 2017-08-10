@@ -185,7 +185,7 @@ class Template extends React.Component {
                 联系我们
               </Link>
               <p>
-                <span>昆山市被纳特机械设备有限公司</span>
+                <span>昆山市贝纳特机械设备有限公司</span>
                 <span>地址：昆山市季广北路119号</span>
                 <span>
                   <a href="http://www.miibeian.gov.cn/" target="_blank">

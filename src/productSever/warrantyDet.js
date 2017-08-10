@@ -3,7 +3,7 @@ import _ from "lodash";
 import { Row, Col } from "antd";
 import bannerImg8 from "web_modules/images/08.jpg";
 
-const smartItems = [
+const items = [
   ["502422", "电源线50英尺", "Smart450E/510E"],
   ["843610", "防溅板", "Smart450B/450E"],
   ["843611", "防溅板", "Smart510B/510E"],
@@ -17,80 +17,14 @@ const smartItems = [
   ["885042", "手柄护套", "Smart450B/450E/510E/510B"]
 ];
 
-const cleverItems = [];
-
-const dragoonItems = [];
-
-const hussarItems = [];
-
-const pxspxItems = [];
-
-const rangerItems = [];
-
-const tornadoItems = [];
-
 export default class Warranty extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      items: smartItems
-    };
   }
 
-  componentDidMount() {
-    const { type } = this.props;
-    this.getItem(type);
-  }
-
-  componentWillReceiveProps(Props) {
-    if (Props.type !== this.props.type) {
-      const { type } = Props;
-      this.getItem(type);
-    }
-  }
-
-  getItem = type => {
-    switch (type) {
-      case "WarrantySmart":
-        this.setState({
-          items: smartItems
-        });
-        break;
-      case "WarrantyClever":
-        this.setState({
-          items: cleverItems
-        });
-        break;
-      case "WarrantyRanger":
-        this.setState({
-          items: rangerItems
-        });
-        break;
-      case "WarrantyHussar":
-        this.setState({
-          items: hussarItems
-        });
-        break;
-      case "WarrantyDragoon":
-        this.setState({
-          items: dragoonItems
-        });
-        break;
-      case "WarrantyTornado":
-        this.setState({
-          items: tornadoItems
-        });
-        break;
-      case "WarrantyPX&SPX":
-        this.setState({
-          items: pxspxItems
-        });
-        break;
-    }
-  };
+  componentDidMount() {}
 
   render() {
-    const { items } = this.state;
     const tds = items.map((tr, index) =>
       <tr className="font-fang-song textColorGrey">
         {tr.map(td =>
@@ -106,9 +40,7 @@ export default class Warranty extends React.Component {
           <img src={bannerImg8} />
         </div>
         <div className="textContent">
-          <p className="title">
-            {this.props.type.slice(8)} 系列保修说明：
-          </p>
+          <p className="title">Smart 系列保修说明：</p>
           <Row className="warranty">
             <Col span={12} className="warrantyItem">
               <p className="mb20 textWeight">
