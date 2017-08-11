@@ -175,7 +175,7 @@
             left: -180%;
           }
         }
-        &:nth-child(4){
+        &:nth-child(4) {
           .productDetCon {
             left: -170%;
           }
@@ -634,10 +634,10 @@
       .warrantyItem {
         &:first-child {
           padding-right: 30px;
-          border-right: 1px dashed @borderColor;
         }
         &:last-child {
           padding-left: 30px;
+          border-left: 1px dashed @borderColor;
         }
       }
       .warrantyTable {
@@ -664,10 +664,10 @@
       padding: 22px 0;
       font-size: 12px;
       .malfunctionItem {
-        border-right: 1px dashed @borderColor;
         padding: 0px 30px;
-        &:last-child {
-          border-right: none;
+        &:nth-child(2){
+          border-right: 1px dashed @borderColor;
+          border-left: 1px dashed @borderColor;
         }
         > p {
           line-height: 20px;
@@ -768,9 +768,9 @@
       tr {
         border-top: 1px solid @borderColor;
         min-height: 110px;
-        &:not(:first-child){
-          td{
-            &:first-child{
+        &:not(:first-child) {
+          td {
+            &:first-child {
               width: 180px;
             }
           }
@@ -787,16 +787,16 @@
 //company
 .companyContainer {
   .backContent {
-    &.sp{
-      padding:40px 85px 10px;
+    &.sp {
+      padding: 40px 85px 10px;
       margin-bottom: 10px;
-      .title{
+      .title {
         margin-bottom: 0;
       }
 
     }
   }
-  .imgContainerBorder{
+  .imgContainerBorder {
     background-color: #F6F7F7;
     padding: 40px 0;
     > img {
@@ -959,7 +959,7 @@
   }
   .productDetInt {
     margin-top: 50px;
-    .ant-tabs-ink-bar{
+    .ant-tabs-ink-bar {
       background-color: white;
     }
     .ant-tabs.ant-tabs-top.ant-tabs-line {
@@ -988,24 +988,24 @@
     border: 1px solid @borderColor1;
     padding: 49px 12vw 23px;
     margin-bottom: 10px;
-    .title{
+    .title {
       font-size: 20px;
       text-align: center;
       padding-bottom: 10px;
       margin-bottom: 15px;
-      &.border{
+      &.border {
         border-bottom: 1px solid @borderColor1;
         margin-bottom: 50px;
       }
     }
-    .progress{
+    .progress {
       text-align: center;
       line-height: 40px;
-      .arrow{
+      .arrow {
         background-color: @activeRed;
         padding: 0 5px;
         position: relative;
-        &:after{
+        &:after {
           content: "";
           display: block;
           height: 0;
@@ -1018,7 +1018,7 @@
           margin-left: -5px;
         }
       }
-      .text{
+      .text {
         color: white;
         font-size: 14px;
         background-color: @activeRed;
@@ -1030,11 +1030,11 @@
       width: 100%;
       height: auto;
     }
-    .sent{
+    .sent {
       font-size: 12px;
       line-height: 30px;
       color: @wordColor;
-      &.pl38{
+      &.pl38 {
         padding-left: 38%;
       }
     }
@@ -1156,7 +1156,7 @@ img {
   height: auto;
 }
 
-th{
+th {
   white-space: nowrap;
 }
 
