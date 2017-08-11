@@ -1,7 +1,9 @@
 import React from "react";
-import { Row, Col } from "antd";
 import About from "./about";
 import Concept from "./concept";
+import Evolution from "./evolution";
+import Honors from "./honors";
+import Publicity from "./publicity";
 import SmallNav from "web_modules/component/smallNav";
 
 const navColumn = [
@@ -19,7 +21,8 @@ const navColumn = [
       },
       {
         key: 11,
-        name: "产品发展史"
+        name: "产品发展史",
+        component: "Evolution"
       }
     ]
   },
@@ -32,12 +35,14 @@ const navColumn = [
   {
     key: 3,
     name: "资质荣誉",
-    span: 6
+    span: 6,
+    component: "Honors"
   },
   {
     key: 4,
     name: "贝纳特宣传册",
-    span: 6
+    span: 6,
+    component: "Publicity"
   }
 ];
 
@@ -75,7 +80,10 @@ export default class Company extends React.Component {
             change={this.onClick}
           />
           {currentComponent === "About" ? <About /> : null}
+          {currentComponent === "Evolution" ? <Evolution /> : null}
           {currentComponent === "Concept" ? <Concept /> : null}
+          {currentComponent === "Honors" ? <Honors /> : null}
+          {currentComponent === "Publicity" ? <Publicity /> : null}
         </div>
       </div>
     );

@@ -36,7 +36,7 @@ export default class Center extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentComponent: "About"
+      currentComponent: "Authorization"
     };
   }
 
@@ -57,9 +57,8 @@ export default class Center extends React.Component {
             span={span}
             change={this.onClick}
           />
-          {currentComponent === ""}
-          <Authorization />
-          <Merchants />
+          {currentComponent === "Authorization" ? <Authorization /> : null}
+          {currentComponent === "Merchants" ? <Merchants /> : null}
         </div>
       </div>
     );

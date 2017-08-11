@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, Row, Col, Table } from "antd";
+import { Tabs, Row, Col } from "antd";
 import machine3 from "web_modules/images/machine3.png";
 import bannerImg1 from "web_modules/images/banner.jpg";
 //import vedio1 from "web_modules/vedio/1.mp4";
@@ -241,9 +241,13 @@ export default class ProductDetail extends React.Component {
                     <span className="circle" />产品优势
                   </p>
                   <p className="font-fang-song">
-                    <p>1. 电瓶式洗地机，机型小，活动范围不受限，操作方便。</p>
-                    <p>2. 按钮开关设计，配有红绿色指示灯，象形功能图案，使用简单，培训、维护成本低。</p>
-                    <p>2. 按钮开关设计，配有红绿色指示灯，象形功能图案，使用简单，培训、维护成本低。</p>
+                    <span className="inlineP">1. 电瓶式洗地机，机型小，活动范围不受限，操作方便。</span>
+                    <span className="inlineP">
+                      2. 按钮开关设计，配有红绿色指示灯，象形功能图案，使用简单，培训、维护成本低。
+                    </span>
+                    <span className="inlineP">
+                      2. 按钮开关设计，配有红绿色指示灯，象形功能图案，使用简单，培训、维护成本低。
+                    </span>
                   </p>
                 </div>
               </TabPane>
