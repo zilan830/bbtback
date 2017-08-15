@@ -20,7 +20,7 @@ export default class App extends React.Component {
         <Route path="/" component={Template}>
           <Route path="home" component={Home} />
           <Route path="productCenter(/:id)" component={ProductCenter} />
-          <Route path="productDetail(/:id)" component={ProductDetail} />
+          <Route path="productCenterDetail(/:id)" component={ProductDetail} />
           <Route path="productSever(/:id)" component={ProductSever} />
           <Route path="company" component={Company} />
           <Route path="activity" component={Activity} />

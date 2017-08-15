@@ -7,12 +7,14 @@ const navColumn = [
     key: 1,
     name: "企业新闻",
     selected: true,
-    span: 12
+    span: 12,
+    component: "News"
   },
   {
     key: 2,
     name: "展会风采",
-    span: 12
+    span: 12,
+    component: "Show"
   }
 ];
 
@@ -27,7 +29,7 @@ export default class Activity extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentComponent: "About"
+      currentComponent: "News"
     };
   }
 
@@ -38,6 +40,7 @@ export default class Activity extends React.Component {
   };
 
   render() {
+    const { currentComponent } = this.state;
     return (
       <div className="activityContainer">
         <div className="contentContainer">
@@ -47,7 +50,8 @@ export default class Activity extends React.Component {
             span={span}
             change={this.onClick}
           />
-          <News />
+          {}
+          <News list={true} type={currentComponent} />
         </div>
       </div>
     );

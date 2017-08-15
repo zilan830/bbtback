@@ -1,22 +1,23 @@
 import React from "react";
 import { Link } from "react-router";
-import { Carousel, Row, Col } from "antd";
+import { Carousel, Row, Col, message } from "antd";
 import bannerImg1 from "web_modules/images/banner.jpg";
+import bannerImg2 from "web_modules/images/banner02.jpg";
 import machine1 from "web_modules/images/machine1.png";
 import machine2 from "web_modules/images/machine2.png";
 import machine3 from "web_modules/images/machine3.png";
-import dataHoc from "web_modules/component/datas";
+import baseReq from "web_modules/api/base";
+import moment from "moment";
 import apiList from "web_modules/api/apilist";
-import "isomorphic-fetch";
-import axios from "axios";
 
-@dataHoc({ url: "/goods/categories/1" }, response => {
-  return { data: response };
-})
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     // console.log("context",this.context)
+    this.state = {
+      newInfo: [],
+      caseInfo: []
+    };
   }
 
   onClick() {
@@ -28,10 +29,63 @@ export default class Home extends React.Component {
     // });
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData = () => {
+    baseReq("/news/newsList/0/3")
+      .then(res => {
+        this.setState({
+          newInfo: res
+        });
+      })
+      .catch(err => {
+        message.error(err);
+      });
+    baseReq("/cases/casesList/0/0/1")
+      .then(res => {
+        this.setState({
+          caseInfo: res
+        });
+      })
+      .catch(err => {
+        message.error(err);
+      });
+  };
 
   render() {
     console.log("data========", this.props.data);
+    const { newInfo, caseInfo } = this.state;
+    const content = newInfo.map((item, index) => {
+      return (
+        <li key={index} className="categoryLi">
+          <Link className="categoryLink">
+            <Row>
+              <Col
+                span={18}
+                className="categoryTile categoryText"
+                style={{ letterSpacing: 0, height: "100%", lineHeight: "24px" }}
+              >
+                {item.title.slice(0, 16)}
+              </Col>
+              <Col
+                span={6}
+                className="categoryTime categoryText"
+                style={{
+                  letterSpacing: 0,
+                  textAlign: "right",
+                  height: "100%",
+                  lineHeight: "24px"
+                }}
+              >
+                {moment(item.createTime).format("YYYY-DD-MM")}
+              </Col>
+            </Row>
+          </Link>
+        </li>
+      );
+    });
     return (
       <div className="homeContainer">
         <div className="bannerContainer">
@@ -112,8 +166,7 @@ export default class Home extends React.Component {
               <p className="title">关于我们</p>
               <div className="categoryInner">
                 <p className="categoryText font-fang-song">
-                  公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司
-                  公司公司公司公司公司公司公司公司公司公司 公司公司公司公司公司公司公司公司公司公司
+                  昆山市贝纳特机械设备有限公司是一家集研发、制造、分销于一体的综合性清洁设备企业。自2007年成立至今，依托于长江三角经济开发区——昆山市千灯镇这一地理优势，一直致力于提供最优质、最高效、最经济的……
                 </p>
               </div>
             </Col>
@@ -121,51 +174,26 @@ export default class Home extends React.Component {
               <p className="title">新闻动态</p>
               <div className="categoryInner">
                 <ul className="categoryUl">
-                  <li className="categoryLi">
-                    <Link className="categoryLink">
-                      <span className="categoryTile categoryText">
-                        标题标题标题标题标题标题
-                      </span>
-                      <span className="categoryTime categoryText">
-                        2017-1-1
-                      </span>
-                    </Link>
-                  </li>
-                  <li className="categoryLi">
-                    <Link className="categoryLink font-song">
-                      <span className="categoryTile categoryText">
-                        标题标题标题标题标题标题
-                      </span>
-                      <span className="categoryTime categoryText">
-                        2017-1-1
-                      </span>
-                    </Link>
-                  </li>
-                  <li className="categoryLi">
-                    <Link className="categoryLink">
-                      <span className="categoryTile categoryText">
-                        标题标题标题标题标题标题
-                      </span>
-                      <span className="categoryTime categoryText">
-                        2017-1-1
-                      </span>
-                    </Link>
-                  </li>
+                  {content}
                 </ul>
               </div>
             </Col>
             <Col span={8} className="category">
               <p className="title">案例集锦</p>
-              <Row className="categoryInner">
-                <Col span={14} className="categoryImgCon">
-                  <div className="categoryImg">
-                    <img src={bannerImg1} />
-                  </div>
-                </Col>
-                <Col span={10} className="categoryImgTitle">
-                  <div className="categoryText font-song">公司案例集锦</div>
-                </Col>
-              </Row>
+              {caseInfo.length > 0
+                ? <Row className="categoryInner">
+                    <Col span={14} className="categoryImgCon">
+                      <div className="categoryImg">
+                        <img src={caseInfo.info_url} />
+                      </div>
+                    </Col>
+                    <Col span={10} className="categoryImgTitle">
+                      <div className="categoryText font-song">
+                        {caseInfo.title}
+                      </div>
+                    </Col>
+                  </Row>
+                : null}
             </Col>
           </Row>
         </div>

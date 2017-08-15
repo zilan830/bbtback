@@ -134,6 +134,26 @@
   padding: 60px 0;
   .productTitleContainer {
     border-bottom: 1px solid @borderColor;
+    &.sp{
+      .productTitles {
+        .productItem {
+          &:nth-child(2) {
+            .productDetCon {
+              left: -60%;
+            }
+          }
+          &:nth-child(3) {
+            .productDetCon {
+              left: -180%;
+            }
+          }
+          &:nth-child(4) {
+            .productDetCon {
+              left: -170%;
+            }
+          }
+        }}
+    }
     .productTitles {
       .productItem {
         text-align: left;
@@ -163,21 +183,6 @@
               top: 0;
               right: 100%;
             }
-          }
-        }
-        &:nth-child(2) {
-          .productDetCon {
-            left: -60%;
-          }
-        }
-        &:nth-child(3) {
-          .productDetCon {
-            left: -180%;
-          }
-        }
-        &:nth-child(4) {
-          .productDetCon {
-            left: -170%;
           }
         }
         &:hover, &.hover {
@@ -296,6 +301,7 @@
         line-height: 30px;
         font-size: 15px;
         border-bottom: 1px solid @borderColor;
+        margin-bottom: 10px;
       }
       .categoryInner {
         padding: 10px 0;
@@ -306,12 +312,16 @@
           color: @wordColor;
           font-size: 12px;
           line-height: 16px;
+          overflow: hidden;
         }
         .categoryUl {
           .categoryLi {
             margin-top: 4px;
             height: 24px;
             border-bottom: 1px dashed @borderColor;
+            .categoryLink{
+              display: block;
+            }
             &:first-child {
               margin-top: 0;
             }
@@ -998,6 +1008,13 @@
         margin-bottom: 50px;
       }
     }
+    .productDetIntConImg{
+      padding: 0 60px 0 0;
+      >img {
+        width: 100%;
+        height: auto;
+      }
+    }
     .progress {
       text-align: center;
       line-height: 40px;
@@ -1243,9 +1260,18 @@ th {
   margin-top: 15px;
 }
 
+.pt30 {
+  padding-top: 30px;
+}
+
 .pt40 {
   padding-top: 40px;
 }
+
+.pt50 {
+  padding-top: 50px;
+}
+
 
 .pb40 {
   padding-bottom: 40px;

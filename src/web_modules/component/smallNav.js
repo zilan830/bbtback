@@ -131,7 +131,13 @@ export default class SmallNav extends React.Component {
     const breadContent = `当前位置:${position}`;
 
     return (
-      <Row className="productTitleContainer font-hei">
+      <Row
+        className={
+          this.props.sp
+            ? "productTitleContainer font-hei sp"
+            : "productTitleContainer font-hei"
+        }
+      >
         <Col span={this.props.span.nav} className="productTitles">
           {navContent}
         </Col>

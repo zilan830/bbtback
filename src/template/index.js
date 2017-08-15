@@ -176,7 +176,7 @@ class Template extends React.Component {
           <Row className="footCon">
             <Col span={20} className="footLink">
               <Link
-                to="#/contact"
+                to="/contact"
                 className="footLinkTag"
                 onClick={() => {
                   this.onClick("contact");

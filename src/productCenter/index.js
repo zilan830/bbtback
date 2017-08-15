@@ -40,7 +40,7 @@ export default class ProductCenter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataList: {},
+      dataList: [],
       currentComponent: "1"
     };
   }
@@ -49,7 +49,6 @@ export default class ProductCenter extends React.Component {
     const url = `/goods/goodsList/${id}`;
     baseReq(url)
       .then(res => {
-        console.log("$PARANS", res);
         this.setState({
           dataList: res
         });
@@ -99,14 +98,10 @@ export default class ProductCenter extends React.Component {
   };
 
   render() {
-    console.log("data========", this.props.data);
-    // const dataList = this.props.data;
-    console.log("dataList========", dataList);
     const { currentComponent, dataList } = this.state;
     let content = [];
     let itemName = "";
-    let goodsRange = "";
-    if (this.noEmpty(dataList)) {
+    if (dataList.length > 0) {
       console.log("$dataList", dataList);
       switch (currentComponent) {
         case "1":
@@ -124,59 +119,71 @@ export default class ProductCenter extends React.Component {
       let type = "";
       const regex1 = /[\(（][\s\S]*[\)）]/; //取括号里的数据
       const regex2 = /[\u4e00-\u9fa5]/g; //获取类型 中文
-      for (const items in dataList) {
-        console.log("$items", items);
-        const itemContent = dataList[items].map((item, index) => {
-          type = Object.keys(item)[0];
-          const listContent = item[Object.keys(item)[0]].map((list, index) => {
-            goodsRange = list.goodsRange;
-            return (
-              <Col key={index} span={12}>
-                <Link to={`/productDetail/${list.catId}`}>
-                  <div className="productItemImgCon">
-                    <div className="productItemImg">
-                      <img src={list.imgUrl} />
-                    </div>
-                    <div className="productItemImgInt">
-                      {list.model}{" "}
-                      <span className="det">
-                        {list.power}m<sup className="sub1">2</sup>/h
-                      </span>
-                    </div>
-                  </div>
-                </Link>
+
+      dataList.map((items, indexs) => {
+        let itemsContent = [];
+        let goodsRange = "";
+        if (items.hasOwnProperty("child1")) {
+          items.child1.map((item, index) => {
+            let iContent = [];
+            if (item.hasOwnProperty("child2")) {
+              iContent = item.child2.map((i, ind) => {
+                goodsRange = i.goodsRange;
+                return (
+                  <Col key={`i.goodsName${ind}`} span={12}>
+                    <Link to={`/productCenterDetail/${i.catId}`}>
+                      <div className="productItemImgCon">
+                        <div className="productItemImg">
+                          <img src={i.imgUrl} />
+                        </div>
+                        <div className="productItemImgInt">
+                          {i.model}
+                          <span className="det">
+                            {i.power}m<sup className="sub1">2</sup>/h
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </Col>
+                );
+              });
+              iContent = (
+                <div key={`item.menu2${index}`} className="productItem">
+                  <p className="productType">
+                    {item.menu2.match(regex2)}{" "}
+                    <span>
+                      {item.menu2.match(regex1)}m<sup className="sub1">2</sup>/h
+                    </span>
+                  </p>
+                  <Row gutter={24} className="productItemImgRow">
+                    {iContent}
+                  </Row>
+                </div>
+              );
+            }
+            itemsContent = (
+              <Col
+                key={items.menu1}
+                span={12}
+                id={`productImgCol${indexs + 1}`}
+                className="productImgCol mb20"
+              >
+                <div className="productImgConItem">
+                  <p className="produceItemTitle">
+                    {items.menu1}
+                    {itemName}
+                  </p>
+                  <p className="productIntroduction">
+                    {goodsRange}
+                  </p>
+                  {iContent}
+                </div>
               </Col>
             );
           });
-          const typech = type.match(regex2).reduce((sum, value) => {
-            return sum + value;
-          }, "");
-          return (
-            <div className="productItem">
-              <p className="productType">
-                {typech}
-                <span>
-                  {type.match(regex1)}m<sup className="sub1">2</sup>/h
-                </span>
-              </p>
-              <Row gutter={24} className="productItemImgRow">
-                {listContent}
-              </Row>
-            </div>
-          );
-        });
-        content.push(
-          <Col span={12} id={`productImgCol1`} className="productImgCol">
-            <div className="productImgConItem">
-              <p className="produceItemTitle">{`${items}${itemName}`}</p>
-              <p className="productIntroduction">
-                {goodsRange}
-              </p>
-              {itemContent}
-            </div>
-          </Col>
-        );
-      }
+        }
+        content.push(itemsContent);
+      });
     }
 
     return (
@@ -194,65 +201,65 @@ export default class ProductCenter extends React.Component {
 
           <Row gutter={24} className="productImgProfile">
             {content}
-            <Col span={12} id="productImgCol2" className="productImgCol">
-              <div className="productImgConItem">
-                <p className="produceItemTitle">手推式洗地机</p>
-                <p className="productIntroduction" />
-                <div className="productItem">
-                  <p className="productType">
-                    中型 <span>(3900-5100)m/h</span>
-                  </p>
-                  <Row gutter={24} className="productItemImgRow">
-                    <Col span={12}>
-                      <Link to="/productDetail">
-                        <div className="productItemImgCon">
-                          <div className="productItemImg">
-                            <img src={machine3} />
-                          </div>
-                          <div className="productItemImgInt">
-                            型号 <span className="det">1470</span>
-                          </div>
-                        </div>
-                      </Link>
-                    </Col>
-                    <Col span={12}>
-                      <Link to="/productDetail">
-                        <div className="productItemImgCon">
-                          <div className="productItemImg">
-                            <img src={machine3} />
-                          </div>
-                          <div className="productItemImgInt">
-                            型号 <span className="det">1470</span>
-                          </div>
-                        </div>
-                      </Link>
-                    </Col>
-                  </Row>
-                  <Row gutter={24} className="productItemImgRow">
-                    <Col span={12}>
-                      <div className="productItemImgCon">
-                        <div className="productItemImg">
-                          <img src={machine3} />
-                        </div>
-                        <div className="productItemImgInt">
-                          型号 <span className="det">1470</span>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col span={12}>
-                      <div className="productItemImgCon">
-                        <div className="productItemImg">
-                          <img src={machine3} />
-                        </div>
-                        <div className="productItemImgInt">
-                          型号 <span className="det">1470</span>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
-              </div>
-            </Col>
+            {/*<Col span={12} id="productImgCol2" className="productImgCol">*/}
+            {/*<div className="productImgConItem">*/}
+            {/*<p className="produceItemTitle">手推式洗地机</p>*/}
+            {/*<p className="productIntroduction"/>*/}
+            {/*<div className="productItem">*/}
+            {/*<p className="productType">*/}
+            {/*中型 <span>(3900-5100)m/h</span>*/}
+            {/*</p>*/}
+            {/*<Row gutter={24} className="productItemImgRow">*/}
+            {/*<Col span={12}>*/}
+            {/*<Link to="/productDetail">*/}
+            {/*<div className="productItemImgCon">*/}
+            {/*<div className="productItemImg">*/}
+            {/*<img src={machine3}/>*/}
+            {/*</div>*/}
+            {/*<div className="productItemImgInt">*/}
+            {/*型号 <span className="det">1470</span>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</Link>*/}
+            {/*</Col>*/}
+            {/*<Col span={12}>*/}
+            {/*<Link to="/productDetail">*/}
+            {/*<div className="productItemImgCon">*/}
+            {/*<div className="productItemImg">*/}
+            {/*<img src={machine3}/>*/}
+            {/*</div>*/}
+            {/*<div className="productItemImgInt">*/}
+            {/*型号 <span className="det">1470</span>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</Link>*/}
+            {/*</Col>*/}
+            {/*</Row>*/}
+            {/*<Row gutter={24} className="productItemImgRow">*/}
+            {/*<Col span={12}>*/}
+            {/*<div className="productItemImgCon">*/}
+            {/*<div className="productItemImg">*/}
+            {/*<img src={machine3}/>*/}
+            {/*</div>*/}
+            {/*<div className="productItemImgInt">*/}
+            {/*型号 <span className="det">1470</span>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</Col>*/}
+            {/*<Col span={12}>*/}
+            {/*<div className="productItemImgCon">*/}
+            {/*<div className="productItemImg">*/}
+            {/*<img src={machine3}/>*/}
+            {/*</div>*/}
+            {/*<div className="productItemImgInt">*/}
+            {/*型号 <span className="det">1470</span>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</Col>*/}
+            {/*</Row>*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*</Col>*/}
           </Row>
         </div>
       </div>

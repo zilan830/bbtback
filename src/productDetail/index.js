@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs, Row, Col } from "antd";
 import machine3 from "web_modules/images/machine3.png";
 import bannerImg1 from "web_modules/images/banner.jpg";
+import SmallNav from "web_modules/component/smallNav";
 //import vedio1 from "web_modules/vedio/1.mp4";
 const TabPane = Tabs.TabPane;
 
@@ -9,170 +10,106 @@ const videos = {
   test: require("./1.mp4")
 };
 
-const renderContent = (value, row, index) => {
-  const obj = {
-    children: value,
-    props: {}
-  };
-  if (index === 4) {
-    obj.props.colSpan = 0;
+const navColumn = [
+  {
+    key: 1,
+    name: "洗地机系列",
+    selected: true,
+    span: 8,
+    children: [
+      {
+        key: 10,
+        name: "smart系列",
+        component: "Smart"
+      },
+      {
+        key: 11,
+        name: "clever系列",
+        component: "Clever"
+      },
+      {
+        key: 12,
+        name: "ranger系列",
+        component: "Ranger"
+      },
+      {
+        key: 13,
+        name: "Hussar系列",
+        component: "Hussar"
+      },
+      {
+        key: 14,
+        name: "dragoon系列",
+        component: "Dragoon"
+      }
+    ]
+  },
+  {
+    key: 2,
+    name: "扫地机系列",
+    span: 8,
+    children: [
+      {
+        key: 20,
+        name: "tornado系列",
+        component: "Tornado"
+      }
+    ]
+  },
+  {
+    key: 3,
+    name: "擦地机系列",
+    span: 8,
+    children: [
+      {
+        key: 30,
+        name: "PX系列",
+        component: "PX"
+      },
+      {
+        key: 31,
+        name: "SPX系列",
+        component: "SPX"
+      }
+    ]
   }
-  return obj;
+];
+
+const breadColumn = ["产品中心", "洗地机系列", "smart系列"];
+
+const span = {
+  nav: 10,
+  bread: 14
 };
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    render: (text, row, index) => {
-      if (index < 4) {
-        return (
-          <a href="#">
-            {text}
-          </a>
-        );
-      }
-      return {
-        children: (
-          <a href="#">
-            {text}
-          </a>
-        ),
-        props: {
-          colSpan: 5
-        }
-      };
-    }
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-    render: renderContent
-  },
-  {
-    title: "Home phone",
-    colSpan: 2,
-    dataIndex: "tel",
-    render: (value, row, index) => {
-      const obj = {
-        children: value,
-        props: {}
-      };
-      if (index === 2) {
-        obj.props.rowSpan = 2;
-      }
-      // These two are merged into above cell
-      if (index === 3) {
-        obj.props.rowSpan = 0;
-      }
-      if (index === 4) {
-        obj.props.colSpan = 0;
-      }
-      return obj;
-    }
-  },
-  {
-    title: "Phone",
-    colSpan: 0,
-    dataIndex: "phone",
-    render: renderContent
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    render: renderContent
-  }
-];
-
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    tel: "0571-22098909",
-    phone: 18889898989,
-    address: "New York No. 1 Lake Park"
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    tel: "0571-22098333",
-    phone: 18889898888,
-    age: 42,
-    address: "London No. 1 Lake Park"
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    tel: "0575-22098909",
-    phone: 18900010002,
-    address: "Sidney No. 1 Lake Park"
-  },
-  {
-    key: "4",
-    name: "Jim Red",
-    age: 18,
-    tel: "0575-22098909",
-    phone: 18900010002,
-    address: "London No. 2 Lake Park"
-  },
-  {
-    key: "5",
-    name: "Jake White",
-    age: 18,
-    tel: "0575-22098909",
-    phone: 18900010002,
-    address: "Dublin No. 2 Lake Park"
-  }
-];
 
 export default class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentComponent: "smart系列"
+    };
   }
+
+  componentDidMount() {}
+
+  onClick = component => {
+    console.log("$PARANScomponent", component);
+    this.setState({
+      currentComponent: component
+    });
+    this.getData(component);
+  };
 
   render() {
     return (
       <div className="productDetailContainer">
         <div className="contentContainer">
-          <Row className="productTitleContainer font-hei">
-            <Col span={10} className="productTitles">
-              <Col span={8} className="productItem active">
-                洗地机系列
-                <Row className="productDetCon">
-                  <span className="productDetItem active">Smart 系列洗地机</span>
-                  <span className="productDetItem">Clever 系列洗地机</span>
-                  <span className="productDetItem">Ranger 系列洗地机</span>
-                  <span className="productDetItem">Hussar 系列洗地机</span>
-                  <span className="productDetItem">Dragoon 系列洗地机</span>
-                </Row>
-              </Col>
-              <Col span={8} className="productItem">
-                扫地机系列
-                <Row className="productDetCon">
-                  <span className="productDetItem">Smart 系列洗地机</span>
-                  <span className="productDetItem">Clever 系列洗地机</span>
-                  <span className="productDetItem">Ranger 系列洗地机</span>
-                  <span className="productDetItem">Hussar 系列洗地机</span>
-                  <span className="productDetItem">Dragoon 系列洗地机</span>
-                </Row>
-              </Col>
-              <Col span={8} className="productItem">
-                擦地机系列
-                <Row className="productDetCon">
-                  <span className="productDetItem">Smart 系列洗地机</span>
-                  <span className="productDetItem">Clever 系列洗地机</span>
-                  <span className="productDetItem">Ranger 系列洗地机</span>
-                  <span className="productDetItem">Hussar 系列洗地机</span>
-                  <span className="productDetItem">Dragoon 系列洗地机</span>
-                </Row>
-              </Col>
-            </Col>
-            <Col span={14} className="productPosition">
-              当前位置:首页>产品中心>洗地机系列
-            </Col>
-          </Row>
+          <SmallNav
+            navColumn={navColumn}
+            breadColumn={breadColumn}
+            span={span}
+            change={this.onClick}
+          />
 
           <div className="productImgShow">
             <Tabs

@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Tabs, Icon } from "antd";
 import authBanner from "web_modules/images/auth1.jpg";
+import center1 from "web_modules/images/center02@4x.png";
 const TabPane = Tabs.TabPane;
 
 export default class Merchants extends React.Component {
@@ -24,9 +25,11 @@ export default class Merchants extends React.Component {
                 <p className="title border">贝纳特招商政策</p>
                 <Row>
                   <Col span={12}>
-                    <img />
+                    <div className="productDetIntConImg">
+                      <img src={center1} />
+                    </div>
                   </Col>
-                  <Col span={12}>
+                  <Col span={12} className="pt50">
                     <p className="sent">1、营销资源：不定期给代理商提供客户数据</p>
                     <p className="sent">2、售后培训：代理商可安排售后人员到工厂进行现场实习</p>
                     <p className="sent">3、 广告支持：厂商一体线上线下联动推广</p>

@@ -171,6 +171,7 @@ export default class ProductSever extends React.Component {
       <div className="productSeverContainer">
         <div className="contentContainer">
           <SmallNav
+            sp={true}
             navColumn={navColumn}
             breadColumn={breadColumn}
             span={span}
