@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import { Row, Col } from "antd";
-import bannerImg8 from "web_modules/images/08.jpg";
+import baoxiu from "web_modules/images/baoxiu.png";
 
 const smartItems = [
   ["502422", "电源线50英尺", "Smart450E/510E"],
@@ -185,7 +185,7 @@ export default class Warranty extends React.Component {
     return (
       <div className="productServerContainer">
         <div className="productServerBanner">
-          <img src={bannerImg8} />
+          <img src={baoxiu} />
         </div>
         <div className="textContent">
           <p className="title">

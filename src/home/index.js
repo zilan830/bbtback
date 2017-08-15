@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router";
 import { Carousel, Row, Col, message } from "antd";
-import bannerImg1 from "web_modules/images/banner.jpg";
-import bannerImg2 from "web_modules/images/banner02.jpg";
+import bannerImg1 from "web_modules/images/banner1.jpg";
+import bannerImg2 from "web_modules/images/banner2.jpg";
+import bannerImg3 from "web_modules/images/banner3.jpg";
+import bannerImg4 from "web_modules/images/banner4.jpg";
 import machine1 from "web_modules/images/machine1.png";
 import machine2 from "web_modules/images/machine2.png";
 import machine3 from "web_modules/images/machine3.png";
@@ -89,15 +91,18 @@ export default class Home extends React.Component {
     return (
       <div className="homeContainer">
         <div className="bannerContainer">
-          <Carousel>
+          <Carousel autoplay>
             <div>
               <img src={bannerImg1} />
             </div>
             <div>
-              <img src={bannerImg1} />
+              <img src={bannerImg2} />
             </div>
             <div>
-              <img src={bannerImg1} />
+              <img src={bannerImg3} />
+            </div>
+            <div>
+              <img src={bannerImg4} />
             </div>
           </Carousel>
         </div>
