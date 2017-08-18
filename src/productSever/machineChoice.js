@@ -40,7 +40,7 @@ export default class MachineChoice extends React.Component {
         >
           <img src={imgPath} />
         </div>
-        <div className="textContent font-fang-song">
+        <div className="textContent">
           洗地机洗地机洗地机洗地机洗地机洗地 机洗地机洗地机洗地机洗地机洗地机洗 地机洗地机洗地机洗地机
         </div>
       </div>

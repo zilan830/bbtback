@@ -9,7 +9,7 @@ export default class Publicity extends React.Component {
           <p className="title">贝纳特宣传册 Brochure</p>
         </div>
         <div className="imgContainer">
-          <img src={publicity} />
+          <div className="publicity01" />
         </div>
       </div>
     );

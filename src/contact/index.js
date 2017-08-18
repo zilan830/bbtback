@@ -35,9 +35,7 @@ export default class Contract extends React.Component {
           <p className="title mt15">联系我们</p>
           <Row className="whiteContent">
             <Col span={8}>
-              <div className="imgCon">
-                <img src={contact01} />
-              </div>
+              <div className="contact01" />
             </Col>
             <Col span={7} className="pl30">
               <p className="font14 textColorGrey line20">地址：江苏昆山市千灯镇季广北路119号</p>
@@ -66,7 +64,7 @@ export default class Contract extends React.Component {
             <Col span={7} offset={2}>
               <div className="smallLogoCon">
                 <div className="smallLogo">
-                  <img src={contact03} />
+                  {/*<img src={contact03} />*/}
                 </div>
               </div>
               <p className="logoTextCh">昆山市贝纳特机械设备有限公司</p>

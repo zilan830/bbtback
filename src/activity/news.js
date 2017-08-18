@@ -10,13 +10,14 @@ export default class News extends React.Component {
     super(props);
     this.state = {
       newInfo: [],
-      list: true
+      list: true,
+      data: []
     };
   }
 
   componentDidMount() {
     const { type } = this.props;
-    this.getData(type, 0, 0);
+    this.getData(type, 1);
   }
 
   componentWillReceiveProps(Props) {
@@ -26,27 +27,43 @@ export default class News extends React.Component {
     });
   }
 
-  onClick = id => {
+  onClick = (type, id) => {
     console.log("$PARANSid", id);
+    if (type === "News") {
+      baseReq(`/news/newsDetail/${id}`)
+        .then(res => {
+          this.setState({
+            data: res
+          });
+        })
+        .catch(err => {
+          message.error(err);
+        });
+    }
     this.setState({
       list: false
     });
   };
 
-  getData = (type, page, pageSize) => {
-    baseReq("/news/newsList/0/12")
-      .then(res => {
-        this.setState({
-          newInfo: res
+  getData = (type, page) => {
+    const currentPage = page - 1;
+    if (type === "News") {
+      baseReq(`/news/newsList/${currentPage * 12}/12`)
+        .then(res => {
+          this.setState({
+            newInfo: res
+          });
+        })
+        .catch(err => {
+          message.error(err);
         });
-      })
-      .catch(err => {
-        message.error(err);
-      });
+    }
   };
 
   onChange = (page, pageSize) => {
     console.log("$PARANSpage", page, pageSize);
+    const { type } = this.props;
+    this.getData(type, page);
   };
 
   render() {
@@ -60,7 +77,7 @@ export default class News extends React.Component {
           <a
             href="javascript:void(0)"
             onClick={() => {
-              this.onClick(item.id);
+              this.onClick(type, item.id);
             }}
           >
             {item.title}
@@ -84,8 +101,8 @@ export default class News extends React.Component {
                 <Pagination
                   size="small"
                   total={100}
-                  onChange={() => {
-                    this.onChange;
+                  onChange={(page, pageSize) => {
+                    this.onChange(page, pageSize);
                   }}
                 />
                 <ul className="newsUl">
@@ -111,7 +128,7 @@ export default class News extends React.Component {
               </Col>
             </Row>
           : <Row className="whiteContent">
-              <NewDet />
+              <NewDet type={type} id={1} />
             </Row>}
       </div>
     );

@@ -41,7 +41,9 @@ export default class ProductCenter extends React.Component {
     super(props);
     this.state = {
       dataList: [],
-      currentComponent: "1"
+      currentComponent: "1",
+      navColumn: navColumn,
+      breadColumn: breadColumn
     };
   }
 
@@ -70,22 +72,98 @@ export default class ProductCenter extends React.Component {
   };
 
   componentDidMount() {
-    this.getData("1");
-    // console.log('$componentDidMount', this.props.data);
-    // this.onClick("1");
+    const href = window.location.href;
+    console.log("$PARANShref", href);
+
+    if (href.indexOf("sweeper") > -1) {
+      console.log("$PARANS");
+      this.getData("2");
+      this.setState({
+        currentComponent: "2",
+        breadColumn: ["产品中心", "扫地机系列"],
+        navColumn: [
+          {
+            key: 1,
+            name: "洗地机系列",
+            span: 8,
+            component: "1"
+          },
+          {
+            key: 2,
+            name: "扫地机系列",
+            span: 8,
+            component: "2",
+            selected: true
+          },
+          {
+            key: 3,
+            name: "擦地机系列",
+            span: 8,
+            component: "3"
+          }
+        ]
+      });
+    } else if (href.indexOf("polisher") > -1) {
+      this.getData("3");
+      this.setState({
+        currentComponent: "3",
+        breadColumn: ["产品中心", "擦地机系列"],
+        navColumn: [
+          {
+            key: 1,
+            name: "洗地机系列",
+            span: 8,
+            component: "1"
+          },
+          {
+            key: 2,
+            name: "扫地机系列",
+            span: 8,
+            component: "2"
+          },
+          {
+            key: 3,
+            name: "擦地机系列",
+            span: 8,
+            component: "3",
+            selected: true
+          }
+        ]
+      });
+    } else {
+      this.getData("1");
+      this.setState({
+        currentComponent: "1",
+        breadColumn: breadColumn,
+        navColumn: [
+          {
+            key: 1,
+            name: "洗地机系列",
+            selected: true,
+            span: 8,
+            component: "1"
+          },
+          {
+            key: 2,
+            name: "扫地机系列",
+            span: 8,
+            component: "2"
+          },
+          {
+            key: 3,
+            name: "擦地机系列",
+            span: 8,
+            component: "3"
+          }
+        ]
+      });
+    }
   }
 
   // componentWillReceiveProps(props) {
-  //
   //   if (props.data !== this.props.data) {
   //     console.log('$compontentWillReceiveProps', props.data)
   //     this.getData("1");
-  //     const height1 = document.getElementById("productImgCol1").clientHeight;
-  //     const height2 = document.getElementById("productImgCol2").clientHeight;
-  //     const height = height1 > height2 ? height1 : height2;
-  //     document.getElementById("productImgCol1").style.height = `${height}px`;
-  //     document.getElementById("productImgCol2").style.height = `${height}px`;
-  //
   //   }
   // }
 
@@ -99,6 +177,7 @@ export default class ProductCenter extends React.Component {
 
   render() {
     const { currentComponent, dataList } = this.state;
+    console.log("$PARANSthis.state.breadColumn", this.state.breadColumn);
     let content = [];
     let itemName = "";
     if (dataList.length > 0) {
@@ -131,7 +210,9 @@ export default class ProductCenter extends React.Component {
                 goodsRange = i.goodsRange;
                 return (
                   <Col key={`i.goodsName${ind}`} span={12}>
-                    <Link to={`/productCenterDetail/${i.catId}`}>
+                    <Link
+                      to={`/productCenterDetail/catId${i.catId}${itemName}`}
+                    >
                       <div className="productItemImgCon">
                         <div className="productItemImg">
                           <img src={i.imgUrl} />
@@ -189,77 +270,18 @@ export default class ProductCenter extends React.Component {
     return (
       <div className="productContainer">
         <div className="productBanner">
-          <img src={product01} />
+          {/*<img src={product01}/>*/}
         </div>
         <div className="contentContainer">
           <SmallNav
-            navColumn={navColumn}
-            breadColumn={breadColumn}
+            navColumn={this.state.navColumn}
+            breadColumn={this.state.breadColumn}
             span={span}
             change={this.onClick}
           />
 
           <Row gutter={24} className="productImgProfile">
             {content}
-            {/*<Col span={12} id="productImgCol2" className="productImgCol">*/}
-            {/*<div className="productImgConItem">*/}
-            {/*<p className="produceItemTitle">手推式洗地机</p>*/}
-            {/*<p className="productIntroduction"/>*/}
-            {/*<div className="productItem">*/}
-            {/*<p className="productType">*/}
-            {/*中型 <span>(3900-5100)m/h</span>*/}
-            {/*</p>*/}
-            {/*<Row gutter={24} className="productItemImgRow">*/}
-            {/*<Col span={12}>*/}
-            {/*<Link to="/productDetail">*/}
-            {/*<div className="productItemImgCon">*/}
-            {/*<div className="productItemImg">*/}
-            {/*<img src={machine3}/>*/}
-            {/*</div>*/}
-            {/*<div className="productItemImgInt">*/}
-            {/*型号 <span className="det">1470</span>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</Link>*/}
-            {/*</Col>*/}
-            {/*<Col span={12}>*/}
-            {/*<Link to="/productDetail">*/}
-            {/*<div className="productItemImgCon">*/}
-            {/*<div className="productItemImg">*/}
-            {/*<img src={machine3}/>*/}
-            {/*</div>*/}
-            {/*<div className="productItemImgInt">*/}
-            {/*型号 <span className="det">1470</span>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</Link>*/}
-            {/*</Col>*/}
-            {/*</Row>*/}
-            {/*<Row gutter={24} className="productItemImgRow">*/}
-            {/*<Col span={12}>*/}
-            {/*<div className="productItemImgCon">*/}
-            {/*<div className="productItemImg">*/}
-            {/*<img src={machine3}/>*/}
-            {/*</div>*/}
-            {/*<div className="productItemImgInt">*/}
-            {/*型号 <span className="det">1470</span>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</Col>*/}
-            {/*<Col span={12}>*/}
-            {/*<div className="productItemImgCon">*/}
-            {/*<div className="productItemImg">*/}
-            {/*<img src={machine3}/>*/}
-            {/*</div>*/}
-            {/*<div className="productItemImgInt">*/}
-            {/*型号 <span className="det">1470</span>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</Col>*/}
-            {/*</Row>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</Col>*/}
           </Row>
         </div>
       </div>

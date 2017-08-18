@@ -408,8 +408,8 @@ export default class Malfunction extends React.Component {
               <p
                 className={
                   ind === it.content.length - 1 && index < item.length - 1
-                    ? "font-fang-song mb20"
-                    : "font-fang-song"
+                    ? "mb20"
+                    : ""
                 }
                 key={`${it.title}-${index}-${ind}`}
               >

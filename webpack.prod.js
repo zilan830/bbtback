@@ -23,6 +23,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.html$/,
+        loader: "html-loader?attrs[]=video:src"
+      },
+      {
         test: /\.(jpg|png|gif|svg)$/,
         use: [
           {
@@ -32,6 +36,10 @@ module.exports = {
           // 'file-loader',
           // 'image-webpack-loader'
         ]
+      },
+      {
+        test: /\.mp4$/,
+        loader: "url-loader?limit=10000&mimetype=video/mp4"
       },
       {
         test: /\.css$/,

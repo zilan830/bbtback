@@ -535,7 +535,7 @@ export default class Supplies extends React.Component {
             {imgContent}
           </Row>
         </div>
-        <div className="textContent font-fang-song suppliesTableCon">
+        <div className="textContent suppliesTableCon">
           <table className="suppliesIntTable">
             <tr>
               <th>照片</th>

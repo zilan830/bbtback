@@ -170,7 +170,7 @@ export default class Home extends React.Component {
             <Col span={8} className="category">
               <p className="title">关于我们</p>
               <div className="categoryInner">
-                <p className="categoryText font-fang-song">
+                <p className="categoryText">
                   昆山市贝纳特机械设备有限公司是一家集研发、制造、分销于一体的综合性清洁设备企业。自2007年成立至今，依托于长江三角经济开发区——昆山市千灯镇这一地理优势，一直致力于提供最优质、最高效、最经济的……
                 </p>
               </div>
@@ -193,7 +193,7 @@ export default class Home extends React.Component {
                       </div>
                     </Col>
                     <Col span={10} className="categoryImgTitle">
-                      <div className="categoryText font-song">
+                      <div className="categoryText">
                         {caseInfo.title}
                       </div>
                     </Col>

@@ -20,7 +20,8 @@ const navColumn = [
       {
         key: 10,
         name: "smart系列",
-        component: "Smart"
+        component: "Smart",
+        selected: true
       },
       {
         key: 11,
@@ -90,7 +91,11 @@ export default class ProductDetail extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const reg = /[\d]{1,4}/g;
+    const href = window.location.href;
+    console.log("$PARANShhhhhhhhh", href.match(reg));
+  }
 
   onClick = component => {
     console.log("$PARANScomponent", component);
@@ -177,7 +182,7 @@ export default class ProductDetail extends React.Component {
                   <p>
                     <span className="circle" />产品优势
                   </p>
-                  <p className="font-fang-song">
+                  <p>
                     <span className="inlineP">1. 电瓶式洗地机，机型小，活动范围不受限，操作方便。</span>
                     <span className="inlineP">
                       2. 按钮开关设计，配有红绿色指示灯，象形功能图案，使用简单，培训、维护成本低。

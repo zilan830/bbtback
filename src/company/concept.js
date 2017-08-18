@@ -45,12 +45,13 @@ export default class Concept extends React.Component {
               </p>
             </Col>
             <Col span={12}>
-              <img src={circleImg} />
+              <div className="concept01" />
+              {/*<img src={circleImg} />*/}
             </Col>
           </Row>
         </div>
-
-        <img src={bottomImg} style={{ marginBottom: "-110px" }} />
+        <div className="concept02" />
+        {/*<img src={bottomImg} style={{ marginBottom: "-110px" }} />*/}
       </div>
     );
   }
