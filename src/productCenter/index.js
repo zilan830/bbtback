@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, Row, Col } from "antd";
+import { message, Row, Col } from "antd";
 import { Link } from "react-router";
 import machine3 from "web_modules/images/machine3.png";
 import product01 from "web_modules/images/product01.png";
@@ -61,6 +61,9 @@ export default class ProductCenter extends React.Component {
         const height = height1 > height2 ? height1 : height2;
         document.getElementById("productImgCol1").style.height = `${height}px`;
         document.getElementById("productImgCol2").style.height = `${height}px`;
+      })
+      .catch(err => {
+        message.error(err);
       });
   };
 
@@ -201,6 +204,7 @@ export default class ProductCenter extends React.Component {
 
       dataList.map((items, indexs) => {
         let itemsContent = [];
+        let itContent = [];
         let goodsRange = "";
         if (items.hasOwnProperty("child1")) {
           items.child1.map((item, index) => {
@@ -211,7 +215,7 @@ export default class ProductCenter extends React.Component {
                 return (
                   <Col key={`i.goodsName${ind}`} span={12}>
                     <Link
-                      to={`/productCenterDetail/catId${i.catId}${itemName}`}
+                      to={`/productCenterDetail/catId=(${i.catId})index=(${ind})${itemName}`}
                     >
                       <div className="productItemImgCon">
                         <div className="productItemImg">
@@ -228,40 +232,40 @@ export default class ProductCenter extends React.Component {
                   </Col>
                 );
               });
-              iContent = (
-                <div key={`item.menu2${index}`} className="productItem">
-                  <p className="productType">
-                    {item.menu2.match(regex2)}{" "}
-                    <span>
-                      {item.menu2.match(regex1)}m<sup className="sub1">2</sup>/h
-                    </span>
-                  </p>
-                  <Row gutter={24} className="productItemImgRow">
-                    {iContent}
-                  </Row>
-                </div>
-              );
             }
-            itemsContent = (
-              <Col
-                key={items.menu1}
-                span={12}
-                id={`productImgCol${indexs + 1}`}
-                className="productImgCol mb20"
-              >
-                <div className="productImgConItem">
-                  <p className="produceItemTitle">
-                    {items.menu1}
-                    {itemName}
-                  </p>
-                  <p className="productIntroduction">
-                    {goodsRange}
-                  </p>
+            itContent.push(
+              <div key={`item.menu2${index}`} className="productItem">
+                <p className="productType">
+                  {item.menu2.match(regex2)}{" "}
+                  <span>
+                    {item.menu2.match(regex1)}m<sup className="sub1">2</sup>/h
+                  </span>
+                </p>
+                <Row gutter={24} className="productItemImgRow">
                   {iContent}
-                </div>
-              </Col>
+                </Row>
+              </div>
             );
           });
+          itemsContent = (
+            <Col
+              key={items.menu1}
+              span={12}
+              id={`productImgCol${indexs + 1}`}
+              className="productImgCol mb20"
+            >
+              <div className="productImgConItem">
+                <p className="produceItemTitle">
+                  {items.menu1}
+                  {itemName}
+                </p>
+                <p className="productIntroduction">
+                  {goodsRange}
+                </p>
+                {itContent}
+              </div>
+            </Col>
+          );
         }
         content.push(itemsContent);
       });

@@ -22,6 +22,18 @@ const span = {
 };
 
 export default class Contract extends React.Component {
+  componentDidMount() {
+    // 百度地图API功能
+    var map = new BMap.Map("allmap"); // 创建Map实例
+    const point = new BMap.Point(121.047111, 31.259444);
+    map.centerAndZoom(point, 20); // 初始化地图,设置中心点坐标和地图级别
+    map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
+    map.setCurrentCity("昆山"); // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+    var marker = new BMap.Marker(point); // 创建标注
+    map.addOverlay(marker); // 将标注添加到地图中
+  }
+
   render() {
     return (
       <div className="contactContainer">
@@ -77,6 +89,15 @@ export default class Contract extends React.Component {
               </div>
             </Col>
           </Row>
+          <div
+            id="allmap"
+            style={{
+              width: "100%",
+              height: "700px",
+              border: "50px solid #000",
+              marginTop: "50px"
+            }}
+          />
         </div>
       </div>
     );
