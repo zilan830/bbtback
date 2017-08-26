@@ -27,28 +27,10 @@ class Template extends React.Component {
         key: "productCenter"
       },
       {
-        name: "产品服务",
-        path: "/productSever",
-        selected: false,
-        key: "productSever"
-      },
-      {
-        name: "贝纳特",
-        path: "/company",
-        selected: false,
-        key: "company"
-      },
-      {
         name: "公司动态",
         path: "/activity",
         selected: false,
         key: "activity"
-      },
-      {
-        name: "联系我们",
-        path: "/contact",
-        selected: false,
-        key: "contact"
       },
       {
         name: "案例集锦",
@@ -175,15 +157,6 @@ class Template extends React.Component {
         <footer className="footer">
           <Row className="footCon">
             <Col span={20} className="footLink">
-              <Link
-                to="/contact"
-                className="footLinkTag"
-                onClick={() => {
-                  this.onClick("contact");
-                }}
-              >
-                联系我们
-              </Link>
               <p>
                 <span>昆山市贝纳特机械设备有限公司</span>
                 <span>地址：昆山市季广北路119号</span>
