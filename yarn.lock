@@ -2166,7 +2166,7 @@ download@^4.0.0, download@^4.1.2:
     vinyl-fs "^2.2.0"
     ware "^1.2.0"
 
-draft-js@^0.10.0, draft-js@~0.10.0:
+draft-js@^0.10.0, draft-js@^0.10.1, draft-js@~0.10.0:
   version "0.10.1"
   resolved "http://registry.npm.taobao.org/draft-js/download/draft-js-0.10.1.tgz#6f1219d8095729691429ca6fd7a58d2a8be5cb67"
   dependencies:
@@ -7165,9 +7165,9 @@ whatwg-fetch@>=0.10.0:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/whatwg-fetch/download/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
 
-"whatwg-fetch@git+https://github.com/matthew-andrews/fetch#ie9":
+whatwg-fetch@matthew-andrews/fetch#ie9:
   version "0.7.0"
-  resolved "git+https://github.com/matthew-andrews/fetch#8ebf5cbbc1e8496bf5dc4c48fd38af349106787d"
+  resolved "https://codeload.github.com/matthew-andrews/fetch/tar.gz/8ebf5cbbc1e8496bf5dc4c48fd38af349106787d"
 
 whatwg-url@^4.3.0:
   version "4.8.0"
@@ -7244,9 +7244,9 @@ xml-name-validator@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/xml-name-validator/download/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
 
-"xmlhttprequest@git+https://github.com/matthew-andrews/node-XMLHttpRequest":
+xmlhttprequest@matthew-andrews/node-XMLHttpRequest:
   version "1.7.0"
-  resolved "git+https://github.com/matthew-andrews/node-XMLHttpRequest#79a415ca98d689651e4a9f6a1ec0fe71d416b120"
+  resolved "https://codeload.github.com/matthew-andrews/node-XMLHttpRequest/tar.gz/79a415ca98d689651e4a9f6a1ec0fe71d416b120"
 
 "xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"
