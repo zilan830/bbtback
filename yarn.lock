@@ -2166,7 +2166,7 @@ download@^4.0.0, download@^4.1.2:
     vinyl-fs "^2.2.0"
     ware "^1.2.0"
 
-draft-js@^0.10.0, draft-js@^0.10.1, draft-js@~0.10.0:
+draft-js@^0.10.0, draft-js@~0.10.0:
   version "0.10.1"
   resolved "http://registry.npm.taobao.org/draft-js/download/draft-js-0.10.1.tgz#6f1219d8095729691429ca6fd7a58d2a8be5cb67"
   dependencies:
@@ -3579,13 +3579,6 @@ isobject@^2.0.0:
   resolved "http://registry.npm.taobao.org/isobject/download/isobject-2.1.0.tgz#f065561096a3f1da2ef46272f815c840d87e0c89"
   dependencies:
     isarray "1.0.0"
-
-isomorphic-fetch@^1.0.0:
-  version "1.7.0"
-  resolved "http://registry.npm.taobao.org/isomorphic-fetch/download/isomorphic-fetch-1.7.0.tgz#15e3eb87c2fb440129ba6b4b8dcf83be30e50620"
-  dependencies:
-    whatwg-fetch matthew-andrews/fetch#ie9
-    xmlhttprequest matthew-andrews/node-XMLHttpRequest
 
 isomorphic-fetch@^2.1.1:
   version "2.2.1"
@@ -7026,6 +7019,10 @@ walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
+wangeditor@^3.0.8:
+  version "3.0.8"
+  resolved "http://registry.npm.taobao.org/wangeditor/download/wangeditor-3.0.8.tgz#aa6e457ad5e60e215bc2e604eee201d9315d0176"
+
 ware@^1.2.0:
   version "1.3.0"
   resolved "http://registry.npm.taobao.org/ware/download/ware-1.3.0.tgz#d1b14f39d2e2cb4ab8c4098f756fe4b164e473d4"
@@ -7165,10 +7162,6 @@ whatwg-fetch@>=0.10.0:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/whatwg-fetch/download/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
 
-whatwg-fetch@matthew-andrews/fetch#ie9:
-  version "0.7.0"
-  resolved "https://codeload.github.com/matthew-andrews/fetch/tar.gz/8ebf5cbbc1e8496bf5dc4c48fd38af349106787d"
-
 whatwg-url@^4.3.0:
   version "4.8.0"
   resolved "http://registry.npm.taobao.org/whatwg-url/download/whatwg-url-4.8.0.tgz#d2981aa9148c1e00a41c5a6131166ab4683bbcc0"
@@ -7243,10 +7236,6 @@ xml-char-classes@^1.0.0:
 xml-name-validator@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/xml-name-validator/download/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
-
-xmlhttprequest@matthew-andrews/node-XMLHttpRequest:
-  version "1.7.0"
-  resolved "https://codeload.github.com/matthew-andrews/node-XMLHttpRequest/tar.gz/79a415ca98d689651e4a9f6a1ec0fe71d416b120"
 
 "xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"

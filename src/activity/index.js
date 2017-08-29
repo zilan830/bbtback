@@ -1,5 +1,6 @@
 import React from "react";
 import SmallNav from "web_modules/component/smallNav";
+import Editor from "web_modules/component/editor";
 import News from "./news";
 
 const navColumn = [
@@ -52,6 +53,7 @@ export default class Activity extends React.Component {
           />
           {}
           <News list={true} type={currentComponent} />
+          <Editor />
         </div>
       </div>
     );
