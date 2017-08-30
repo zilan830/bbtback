@@ -25,7 +25,8 @@ export default class Editor extends Component {
         editorContent: html
       });
     };
-    editor.customConfig.uploadImgServer = "/upload";
+    editor.customConfig.uploadFileName = "files";
+    editor.customConfig.uploadImgServer = "http://47.92.123.27/upload";
     editor.create();
     editor.txt.html(this.props.defaultConenet);
   }
