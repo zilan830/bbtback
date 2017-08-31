@@ -8,6 +8,58 @@
 @textBackColor: #363533;
 @borderColor1: #DCDCDC;
 
+//login
+.loginContainer{
+  margin: 150px auto;
+  text-align: center;
+  .title{
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 20px;
+    font-weight:bold;
+  }
+  .formCon{
+    max-width: 300px;
+    margin: 100px auto;
+  }
+  .login-form-button {
+    width: 100%;
+  }
+}
+
+.hoverShowContainer{
+  padding: 10px;
+  box-shadow: 0 0 2px #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.tableInlineImg{
+  width: 300px;
+  height: auto;
+}
+
+.mr5{
+  margin-right: 5px;
+}
+
+.formItem{
+  font-size: 14px;
+  line-height: 28px;
+  &.btn{
+    text-align: center;
+    margin-top: 20px;
+    >input{
+      width: 100px;
+      height: 30px;
+    }
+  }
+  input{
+
+  }
+}
+
+
 //template
 .container {
   .header {
@@ -59,7 +111,6 @@
       margin: 0 auto;
       .navItem {
         float: left;
-        width: 12.5%;
         transition: all 0.3s;
         &.active {
           background-color: #D63136;

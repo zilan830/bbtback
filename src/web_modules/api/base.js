@@ -6,11 +6,14 @@ export default (url, data) => {
   console.log("$Purl", url);
   return axios({
     method: "post",
-    url: `http://47.92.123.27:80${url}`
+    url: `http://47.92.123.27:80${url}`,
+    data
   })
     .then(res => {
       if (res.data.code === 10000) {
-        return res.data.data;
+        return res.data;
+      } else {
+        window.location.href = "#/home";
       }
     })
     .catch(err => {

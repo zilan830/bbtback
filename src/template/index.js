@@ -15,12 +15,6 @@ class Template extends React.Component {
     super(props);
     const column = [
       {
-        name: "首页",
-        path: "/home",
-        selected: true,
-        key: "home"
-      },
-      {
         name: "产品中心",
         path: "/productCenter",
         selected: false,
@@ -113,6 +107,7 @@ class Template extends React.Component {
     const navContent = column.map(item => {
       return (
         <Col
+          span={6}
           key={item.key}
           className={item.selected ? "navItem active" : "navItem"}
           onClick={() => {

@@ -1,293 +1,403 @@
 import React from "react";
-import { message, Row, Col } from "antd";
+import {
+  message,
+  Row,
+  Col,
+  Table,
+  Tabs,
+  Dropdown,
+  Popconfirm,
+  Button,
+  Modal,
+  Icon
+} from "antd";
 import { Link } from "react-router";
-import machine3 from "web_modules/images/machine3.png";
-import product01 from "web_modules/images/product01.png";
-import SmallNav from "web_modules/component/smallNav";
-import dataHoc from "web_modules/component/datas";
 import baseReq from "web_modules/api/base";
-
-const navColumn = [
-  {
-    key: 1,
-    name: "洗地机系列",
-    selected: true,
-    span: 8,
-    component: "1"
-  },
-  {
-    key: 2,
-    name: "扫地机系列",
-    span: 8,
-    component: "2"
-  },
-  {
-    key: 3,
-    name: "擦地机系列",
-    span: 8,
-    component: "3"
-  }
-];
-
-const breadColumn = ["产品中心", "洗地机系列"];
-
-const span = {
-  nav: 10,
-  bread: 14
-};
+const TabPane = Tabs.TabPane;
 
 export default class ProductCenter extends React.Component {
   constructor(props) {
     super(props);
+    this.column = [
+      {
+        title: "产品名称",
+        dataIndex: "goodsName",
+        key: "goodsName",
+        width: 100
+      },
+      {
+        title: "产品所属类目",
+        dataIndex: "type1",
+        key: "type1",
+        width: 100
+      },
+      {
+        title: "产品属性",
+        dataIndex: "type2",
+        key: "type2",
+        width: 200
+      },
+      {
+        title: "功率",
+        dataIndex: "power",
+        key: "power",
+        width: 100
+      },
+      {
+        title: "产品描述",
+        dataIndex: "advantage",
+        key: "advantage",
+        render(record) {
+          let data;
+          if (record) {
+            data = JSON.parse(record);
+          }
+          if (data && data.length > 0) {
+            let content = data.map((item, index) => {
+              const ind = parseInt(index) + 1;
+              return (
+                <p
+                  style={{ background: "white" }}
+                  className="line16"
+                  key={index}
+                >{`${ind}、${item}`}</p>
+              );
+            });
+
+            content = (
+              <div className="hoverShowContainer">
+                {content}
+              </div>
+            );
+            return (
+              <Dropdown overlay={content}>
+                <a href="javascript:void(0)">详情</a>
+              </Dropdown>
+            );
+          } else {
+            return <span>暂无数据</span>;
+          }
+        }
+      },
+      {
+        title: "产品图片",
+        dataIndex: "imgUrl",
+        key: "imgUrl",
+        render(img) {
+          if (img) {
+            const content = <img className="tableInlineImg" src={img} />;
+            return (
+              <Dropdown overlay={content}>
+                <a href="javascript:void(0)">详情</a>
+              </Dropdown>
+            );
+          } else {
+            return <span>暂无数据</span>;
+          }
+        }
+      },
+      {
+        title: "产品详情视频",
+        dataIndex: "videoUrl",
+        key: "videoUrl",
+        render(video) {
+          if (video) {
+            const content = (
+              <div className="tableInlineImg">
+                <video width="100%" height="100%" src={video} controls>
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+            );
+            return (
+              <Dropdown overlay={content}>
+                <a href="javascript:void(0)">详情</a>
+              </Dropdown>
+            );
+          } else {
+            return <span>暂无数据</span>;
+          }
+        }
+      },
+      {
+        title: "产品详情图片",
+        dataIndex: "instruction",
+        key: "instruction",
+        render(img) {
+          if (img) {
+            const content = <img className="tableInlineImg" src={img} />;
+            return (
+              <Dropdown overlay={content}>
+                <a href="javascript:void(0)">详情</a>
+              </Dropdown>
+            );
+          } else {
+            return <span>暂无数据</span>;
+          }
+        }
+      },
+      {
+        title: "产品应用案例",
+        dataIndex: "application",
+        key: "application",
+        render(url) {
+          let content = [];
+          if (url) {
+            if (!url.indexOf(".mp4")) {
+              content = <img className="tableInlineImg" src={url} />;
+            } else {
+              content = (
+                <div className="tableInlineImg">
+                  <video width="100%" height="100%" src={url} controls>
+                    Your browser does not support HTML5 video.
+                  </video>
+                </div>
+              );
+            }
+            return (
+              <Dropdown overlay={content}>
+                <a href="javascript:void(0)">详情</a>
+              </Dropdown>
+            );
+          } else {
+            return <span>暂无数据</span>;
+          }
+        }
+      },
+      {
+        title: "操作",
+        key: "operation",
+        render: this.operate
+      }
+    ];
     this.state = {
       dataList: [],
-      currentComponent: "1",
-      navColumn: navColumn,
-      breadColumn: breadColumn
+      newVisible: false,
+      featureContent: [],
+      type2: 1
     };
   }
 
-  getData = id => {
-    const url = `/goods/goodsList/${id}`;
-    baseReq(url)
+  operate = (e, record, index) => {
+    return (
+      <span>
+        <a className="mr5" href="javascript:void(0)">
+          编辑
+        </a>
+        <Popconfirm
+          title="确定要删除？"
+          onConfirm={this.handleDelete.bind(this, record)}
+        >
+          <a href="javascript:void(0)">删除</a>
+        </Popconfirm>
+      </span>
+    );
+  };
+
+  //删除
+  handleDelete = record => {
+    console.log("$PARANSrecord", record);
+    const id = record.gid;
+    baseReq(`/boss/delGoods`, { id: id })
       .then(res => {
-        this.setState({
-          dataList: res
-        });
+        console.log("$PARANSres", res);
       })
       .then(() => {
-        const height1 = document.getElementById("productImgCol1").clientHeight;
-        const height2 = document.getElementById("productImgCol2").clientHeight;
-        const height = height1 > height2 ? height1 : height2;
-        document.getElementById("productImgCol1").style.height = `${height}px`;
-        document.getElementById("productImgCol2").style.height = `${height}px`;
+        this.getTable();
       })
       .catch(err => {
         message.error(err);
       });
   };
 
-  onClick = component => {
-    this.setState({
-      currentComponent: component
-    });
-    this.getData(component);
-  };
-
   componentDidMount() {
-    const href = window.location.href;
-    console.log("$PARANShref", href);
-
-    if (href.indexOf("sweeper") > -1) {
-      console.log("$PARANS");
-      this.getData("2");
-      this.setState({
-        currentComponent: "2",
-        breadColumn: ["产品中心", "扫地机系列"],
-        navColumn: [
-          {
-            key: 1,
-            name: "洗地机系列",
-            span: 8,
-            component: "1"
-          },
-          {
-            key: 2,
-            name: "扫地机系列",
-            span: 8,
-            component: "2",
-            selected: true
-          },
-          {
-            key: 3,
-            name: "擦地机系列",
-            span: 8,
-            component: "3"
-          }
-        ]
-      });
-    } else if (href.indexOf("polisher") > -1) {
-      this.getData("3");
-      this.setState({
-        currentComponent: "3",
-        breadColumn: ["产品中心", "擦地机系列"],
-        navColumn: [
-          {
-            key: 1,
-            name: "洗地机系列",
-            span: 8,
-            component: "1"
-          },
-          {
-            key: 2,
-            name: "扫地机系列",
-            span: 8,
-            component: "2"
-          },
-          {
-            key: 3,
-            name: "擦地机系列",
-            span: 8,
-            component: "3",
-            selected: true
-          }
-        ]
-      });
-    } else {
-      this.getData("1");
-      this.setState({
-        currentComponent: "1",
-        breadColumn: breadColumn,
-        navColumn: [
-          {
-            key: 1,
-            name: "洗地机系列",
-            selected: true,
-            span: 8,
-            component: "1"
-          },
-          {
-            key: 2,
-            name: "扫地机系列",
-            span: 8,
-            component: "2"
-          },
-          {
-            key: 3,
-            name: "擦地机系列",
-            span: 8,
-            component: "3"
-          }
-        ]
-      });
-    }
+    this.getData(1);
   }
 
-  // componentWillReceiveProps(props) {
-  //   if (props.data !== this.props.data) {
-  //     console.log('$compontentWillReceiveProps', props.data)
-  //     this.getData("1");
-  //   }
-  // }
+  getData = page => {
+    const currentPage = page - 1;
+    const url = `/boss/goodsList/${currentPage}/${page * 10}`;
+    baseReq(url)
+      .then(res => {
+        this.setState({
+          dataList: res.data,
+          total: res.count
+        });
+      })
+      .catch(err => {
+        message.error(err);
+      });
+  };
 
-  //判断object是否为空
-  noEmpty = obj => {
-    for (const name in obj) {
-      return true;
+  showNewForm = () => {
+    this.setState({
+      newVisible: true
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      newVisible: false
+    });
+  };
+
+  add = () => {
+    const { featureContent } = this.state;
+    featureContent.push(
+      <p className="formItem">
+        <input type="text" name="feature" placeholder="请输入产品特点" />
+      </p>
+    );
+    this.setState({
+      featureContent
+    });
+  };
+
+  onSelect = e => {
+    const value = e.target.value;
+    if (value === "手推式") {
+      this.setState({
+        type2: 1
+      });
+    } else {
+      this.setState({
+        type2: 2
+      });
     }
-    return false;
   };
 
   render() {
-    const { currentComponent, dataList } = this.state;
-    console.log("$PARANSthis.state.breadColumn", this.state.breadColumn);
-    let content = [];
-    let itemName = "";
-    if (dataList.length > 0) {
-      console.log("$dataList", dataList);
-      switch (currentComponent) {
-        case "1":
-          itemName = "洗地机";
-          break;
-        case "2":
-          itemName = "扫地机";
-          break;
-        case "3":
-          itemName = "擦地机";
-          break;
-        default:
-          break;
-      }
-      let type = "";
-      const regex1 = /[\(（][\s\S]*[\)）]/; //取括号里的数据
-      const regex2 = /[\u4e00-\u9fa5]/g; //获取类型 中文
-
-      dataList.map((items, indexs) => {
-        let itemsContent = [];
-        let itContent = [];
-        let goodsRange = "";
-        if (items.hasOwnProperty("child1")) {
-          items.child1.map((item, index) => {
-            let iContent = [];
-            if (item.hasOwnProperty("child2")) {
-              iContent = item.child2.map((i, ind) => {
-                goodsRange = i.goodsRange;
-                return (
-                  <Col key={`i.goodsName${ind}`} span={12}>
-                    <Link
-                      to={`/productCenterDetail/catId=(${i.catId})index=(${ind})${itemName}`}
-                    >
-                      <div className="productItemImgCon">
-                        <div className="productItemImg">
-                          <img src={i.imgUrl} />
-                        </div>
-                        <div className="productItemImgInt">
-                          {i.model}
-                          <span className="det">
-                            {i.power}m<sup className="sub1">2</sup>/h
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  </Col>
-                );
-              });
-            }
-            itContent.push(
-              <div key={`item.menu2${index}`} className="productItem">
-                <p className="productType">
-                  {item.menu2.match(regex2)}{" "}
-                  <span>
-                    {item.menu2.match(regex1)}m<sup className="sub1">2</sup>/h
-                  </span>
-                </p>
-                <Row gutter={24} className="productItemImgRow">
-                  {iContent}
-                </Row>
-              </div>
-            );
-          });
-          itemsContent = (
-            <Col
-              key={items.menu1}
-              span={12}
-              id={`productImgCol${indexs + 1}`}
-              className="productImgCol mb20"
-            >
-              <div className="productImgConItem">
-                <p className="produceItemTitle">
-                  {items.menu1}
-                  {itemName}
-                </p>
-                <p className="productIntroduction">
-                  {goodsRange}
-                </p>
-                {itContent}
-              </div>
-            </Col>
-          );
-        }
-        content.push(itemsContent);
-      });
-    }
+    const { dataList, total, featureContent, type2 } = this.state;
 
     return (
-      <div className="productContainer">
-        <div className="productBanner">
-          {/*<img src={product01}/>*/}
-        </div>
-        <div className="contentContainer">
-          <SmallNav
-            navColumn={this.state.navColumn}
-            breadColumn={this.state.breadColumn}
-            span={span}
-            change={this.onClick}
-          />
+      <div className="contentContainer">
+        <Button className="mb10" onClick={this.showNewForm}>
+          新建
+        </Button>
+        <Table
+          scroll={{ x: 1500 }}
+          columns={this.column}
+          dataSource={dataList || []}
+          rowKey={record => record.gid}
+          Pagination={{
+            showQuickJumper: true,
+            total: total,
+            onChange: (page, pageSize) => {
+              this.getData(page, pageSize);
+            }
+          }}
+        />
+        <Modal
+          title="新建产品表单"
+          footer={null}
+          visible={this.state.newVisible}
+          onCancel={this.handleCancel}
+        >
+          <form
+            action="/boss/addGoods"
+            method="post"
+            encType="multipart/form-data"
+          >
+            <p className="formItem">
+              产品名：<input type="text" name="goodsName" placeholder="请输入产品名" />
+            </p>
+            <p className="formItem" id="type1">
+              产品操作方式：
+              <select name="type1" onChange={this.onSelect}>
+                <option value="手推式">手推式</option>
+                <option value="驾驶式">驾驶式</option>
+              </select>
+            </p>
+            <p className="formItem">
+              产品类型：
+              {type2 === 1
+                ? <select name="type2">
+                    <option value="小型  (1470-1650）m²/h">
+                      小型 (1470-1650）m²/h
+                    </option>
+                    <option value="中型  (1750-2640）m²/h">
+                      中型 (1750-2640）m²/h
+                    </option>
+                  </select>
+                : <select name="type1">
+                    <option value="小型（2500-3200）m²/h">小型（2500-3200）m²/h</option>
+                    <option value="中型（3900-5100）m²/h">中型（3900-5100）m²/h</option>
+                    <option value="大型（6000-7000）m²/h">大型（6000-7000）m²/h</option>
+                  </select>}
+            </p>
+            <p className="formItem">
+              产品型号：<input type="text" name="model" placeholder="请输入产品型号" />
+            </p>
+            <p className="formItem">
+              产品功率：<input type="number" name="power" placeholder="请输入产品功率" />
+            </p>
+            <p className="formItem">
+              产品系列:
+              <select name="catId">
+                <option value="1">Tornado系列扫地机</option>
+                <option value="2">Dragoon系列洗地机</option>
+                <option value="3">Ranger系列洗地机</option>
+                <option value="4">Hussar系列洗地机</option>
+                <option value="5">Clever系列洗地机</option>
+                <option value="6">Smart系列洗地机</option>
+                <option value="7">PX系列抛光机</option>
+                <option value="8">SPX系列抛光机</option>
+              </select>
+            </p>
+            <p className="formItem">
+              产品使用范围：<input
+                type="text"
+                name="goodsRange"
+                placeholder="请输入产品使用范围"
+              />
+            </p>
+            <p className="formItem">
+              产品特点:
+              <p className="formItem">
+                <input type="text" name="feature" placeholder="请输入产品特点" />
+              </p>
+            </p>
+            <p className="formItem">
+              产品优势:<a href="javascript:void(0)" onClick={this.add}>
+                <Icon type="plus" />
+              </a>
+              <p className="formItem">
+                <input type="text" name="advantage" placeholder="请输入产品特点" />
+              </p>
+              {featureContent}
+            </p>
+            <p className="formItem">
+              产品操作说明: <input type="file" name="fileInstructionUrl" />
+            </p>
+            <p className="formItem">
+              产品主图片: <input type="file" name="fileImgUrl" />
+            </p>
+            <p className="formItem">
+              产品操作讲解视频：<input type="file" name="fileVideoUrl" />
+            </p>
+            <p className="formItem">
+              案例信息：<input type="file" name="fileApplicationUrl" />
+            </p>
+            <p className="formItem btn">
+              <input type="submit" value="提交" />
+            </p>
+          </form>
+        </Modal>
 
-          <Row gutter={24} className="productImgProfile">
-            {content}
-          </Row>
-        </div>
+        {/*<Tabs defaultActiveKey="1">*/}
+        {/*<TabPane tab="洗地机系列" key="1">*/}
+        {/*<Table*/}
+        {/*columns={this.column}*/}
+        {/*Pagination={{*/}
+        {/*showQuickJumper: true,*/}
+        {/*showSizeChanger: true,*/}
+        {/*total: total,*/}
+        {/*}}*/}
+        {/*/>*/}
+        {/*</TabPane>*/}
+        {/*<TabPane tab="扫地机系列" key="2">Content of Tab Pane 2</TabPane>*/}
+        {/*<TabPane tab="擦地机系列" key="3">Content of Tab Pane 3</TabPane>*/}
+        {/*</Tabs>*/}
       </div>
     );
   }
