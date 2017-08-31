@@ -196,7 +196,6 @@ export default class ProductCenter extends React.Component {
 
   //删除
   handleDelete = record => {
-    console.log("$PARANSrecord", record);
     const id = record.gid;
     baseReq(`/boss/delGoods`, { id: id })
       .then(res => {

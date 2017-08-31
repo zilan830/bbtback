@@ -14,15 +14,17 @@ export default class App extends React.Component {
   render() {
     return (
       <Router history={hashHistory}>
-        <Route path="/" component={Template}>
-          <Route path="productCenter" component={ProductCenter} />
-          <Route path="productCenterDetail(/:id)" component={ProductDetail} />
-          <Route path="activity" component={Activity} />
-          <Route path="cases" component={Cases} />
-          <Route path="center" component={Center} />
+        <Route path="/">
+          <IndexRedirect to="/home" />
+          <Route path="home" component={Home} />
+          <Route path="/" component={Template}>
+            <Route path="productCenter" component={ProductCenter} />
+            <Route path="productCenterDetail(/:id)" component={ProductDetail} />
+            <Route path="activity" component={Activity} />
+            <Route path="cases" component={Cases} />
+            <Route path="center" component={Center} />
+          </Route>
         </Route>
-        <Route path="/home" component={Home} />
-        <IndexRedirect to="/home" />
       </Router>
     );
   }
