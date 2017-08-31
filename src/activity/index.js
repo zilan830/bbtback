@@ -53,7 +53,6 @@ export default class Activity extends React.Component {
           />
           {}
           <News list={true} type={currentComponent} />
-          <Editor />
         </div>
       </div>
     );
