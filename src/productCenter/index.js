@@ -245,7 +245,7 @@ export default class ProductCenter extends React.Component {
     const { featureContent } = this.state;
     featureContent.push(
       <p className="formItem">
-        <input type="text" name="feature" placeholder="请输入产品特点" />
+        <input type="text" name="advantage" placeholder="请输入产品特点" />
       </p>
     );
     this.setState({
@@ -312,16 +312,21 @@ export default class ProductCenter extends React.Component {
               产品类型：
               {type2 === 1
                 ? <select name="type2">
-                    <option value="小型  (1470-1650）m²/h">
+                    <option value="小型 (1470-1650）m²/h">
                       小型 (1470-1650）m²/h
                     </option>
-                    <option value="中型  (1750-2640）m²/h">
+                    <option value="中型 (1750-2640）m²/h">
                       中型 (1750-2640）m²/h
                     </option>
+                    <option value="多功能（650-1100）m²/h">
+                      多功能 (650-1100）m²/h
+                    </option>
+                    <option value="多功能（650-840）m²/h">多功能（650-840）m²/h</option>
                   </select>
                 : <select name="type1">
                     <option value="小型（2500-3200）m²/h">小型（2500-3200）m²/h</option>
                     <option value="中型（3900-5100）m²/h">中型（3900-5100）m²/h</option>
+                    <option value="中型（4500-7000）m²/h">中型（4500-7000）m²/h</option>
                     <option value="大型（6000-7000）m²/h">大型（6000-7000）m²/h</option>
                   </select>}
             </p>
