@@ -13,7 +13,10 @@ import {
 } from "antd";
 import { Link } from "react-router";
 import baseReq from "web_modules/api/base";
+import TecForm from "./tecForm";
+import FormDet from "./formdet";
 const TabPane = Tabs.TabPane;
+import TecTable from "./table";
 
 export default class ProductCenter extends React.Component {
   constructor(props) {
@@ -165,6 +168,11 @@ export default class ProductCenter extends React.Component {
         }
       },
       {
+        title: "技术参数",
+        key: "tec",
+        render: this.tecShow
+      },
+      {
         title: "操作",
         key: "operation",
         render: this.operate
@@ -174,15 +182,51 @@ export default class ProductCenter extends React.Component {
       dataList: [],
       newVisible: false,
       featureContent: [],
-      type2: 1
+      type2: 1,
+      currentId: 0,
+      tecVisible: false,
+      tableList: [],
+      tecShow: false,
+      goodsName: ""
     };
   }
+
+  tecShow = (e, record) => {
+    const id = record.gid;
+    const goodsName = record.goodsName;
+    return (
+      <a
+        href="javascript:void(0)"
+        onClick={this.getTable.bind(null, id, goodsName)}
+      >
+        点击查看详情
+      </a>
+    );
+  };
+
+  getTable = (goodsId, goodsName) => {
+    baseReq(`/goods/reference/${goodsId}`)
+      .then(res => {
+        this.setState({
+          tableList: res.data,
+          tecShow: true,
+          goodsName: goodsName
+        });
+      })
+      .catch(err => {
+        message.error(err);
+      });
+  };
 
   operate = (e, record, index) => {
     return (
       <span>
-        <a className="mr5" href="javascript:void(0)">
-          编辑
+        <a
+          className="mr5"
+          href="javascript:void(0)"
+          onClick={this.addTec.bind(this, record)}
+        >
+          添加技术参数
         </a>
         <Popconfirm
           title="确定要删除？"
@@ -194,6 +238,56 @@ export default class ProductCenter extends React.Component {
     );
   };
 
+  addTec = record => {
+    this.setState({
+      currentId: record.gid,
+      tecVisible: true
+    });
+  };
+
+  //技术添加
+  addTecData = () => {
+    this.refs.tec.validateFields((err, values) => {
+      if (!!err) {
+        console.log(err);
+      } else {
+        this.setState({
+          formLoading: true
+        });
+        console.log("$PARANSvalues", values);
+        const index = values.index;
+        const param = {};
+        param.gid = this.state.currentId;
+        const tec = [];
+        for (let i = 0; i < index; i++) {
+          tec.push({
+            name: values[`name${i}`],
+            item: values[`value${i}`],
+            value: values[`value${i}`]
+          });
+        }
+        param.tec = tec;
+        baseReq("/boss/addTec", param)
+          .then(res => {
+            console.log("$PARANSres", res);
+            this.refs.tec.resetFields();
+            message.success("操作成功");
+            this.setState({
+              tecVisible: false,
+              formLoading: false
+            });
+            this.getData(1);
+          })
+          .catch(err => {
+            message.error(err);
+            this.setState({
+              formLoading: false
+            });
+          });
+      }
+    });
+  };
+
   //删除
   handleDelete = record => {
     const id = record.gid;
@@ -202,7 +296,7 @@ export default class ProductCenter extends React.Component {
         console.log("$PARANSres", res);
       })
       .then(() => {
-        this.getTable();
+        this.getData(1);
       })
       .catch(err => {
         message.error(err);
@@ -214,8 +308,8 @@ export default class ProductCenter extends React.Component {
   }
 
   getData = page => {
-    const currentPage = page - 1;
-    const url = `/boss/goodsList/${currentPage}/${page * 10}`;
+    const currentPage = page;
+    const url = `/boss/goodsList/${currentPage}/10`;
     baseReq(url)
       .then(res => {
         this.setState({
@@ -229,15 +323,31 @@ export default class ProductCenter extends React.Component {
   };
 
   showNewForm = () => {
+    // const formData = new FormData();
+    // formData.append("username", "Groucho", "application/octet-stream");
+    // baseReq('/boss/addGoods', formData)
+    //   .then(res => {
+    //     console.log('$PARANSres', res)
+    //   })
+    //   .catch(err => {
+    //     message.error(err);
+    //   });
+
     this.setState({
       newVisible: true
     });
   };
 
-  handleCancel = () => {
+  handleCancel = tec => {
     this.setState({
-      newVisible: false
+      newVisible: false,
+      tecVisible: false,
+      formLoading: false,
+      tecShow: false
     });
+    if (tec === "tec") {
+      this.refs.tec.resetFields();
+    }
   };
 
   add = () => {
@@ -265,9 +375,31 @@ export default class ProductCenter extends React.Component {
     }
   };
 
-  render() {
-    const { dataList, total, featureContent, type2 } = this.state;
+  pushNew = () => {
+    const form = window.document.getElementById("newForm");
+    const formdata = new FormData(form);
+    baseReq("/boss/addGoods", formdata)
+      .then(res => {
+        console.log("$PARANSres", res);
+        message.success("添加成功");
+        window.document.getElementById("reset").click();
+        this.handleCancel();
+        this.getData(1);
+      })
+      .catch(err => {
+        message.error(err);
+      });
+  };
 
+  render() {
+    const {
+      dataList,
+      total,
+      featureContent,
+      type2,
+      tableList,
+      goodsName
+    } = this.state;
     return (
       <div className="contentContainer">
         <Button className="mb10" onClick={this.showNewForm}>
@@ -278,7 +410,7 @@ export default class ProductCenter extends React.Component {
           columns={this.column}
           dataSource={dataList || []}
           rowKey={record => record.gid}
-          Pagination={{
+          pagination={{
             showQuickJumper: true,
             total: total,
             onChange: (page, pageSize) => {
@@ -287,16 +419,12 @@ export default class ProductCenter extends React.Component {
           }}
         />
         <Modal
-          title="新建产品表单"
-          footer={null}
+          title="产品表单"
           visible={this.state.newVisible}
           onCancel={this.handleCancel}
+          onOk={this.pushNew}
         >
-          <form
-            action="/boss/addGoods"
-            method="post"
-            encType="multipart/form-data"
-          >
+          <form id="newForm" encType="multipart/form-data">
             <p className="formItem">
               产品名：<input type="text" name="goodsName" placeholder="请输入产品名" />
             </p>
@@ -336,8 +464,7 @@ export default class ProductCenter extends React.Component {
               产品功率：<input type="number" name="power" placeholder="请输入产品功率" />
             </p>
             <p className="formItem">
-              产品系列:
-              <select name="catId">
+              产品系列：<select name="catId">
                 <option value="1">Tornado系列扫地机</option>
                 <option value="2">Dragoon系列洗地机</option>
                 <option value="3">Ranger系列洗地机</option>
@@ -356,13 +483,10 @@ export default class ProductCenter extends React.Component {
               />
             </p>
             <p className="formItem">
-              产品特点:
-              <p className="formItem">
-                <input type="text" name="feature" placeholder="请输入产品特点" />
-              </p>
+              产品特点：<input type="text" name="feature" placeholder="请输入产品特点" />
             </p>
             <p className="formItem">
-              产品优势:<a href="javascript:void(0)" onClick={this.add}>
+              产品优势：<a href="javascript:void(0)" onClick={this.add}>
                 <Icon type="plus" />
               </a>
               <p className="formItem">
@@ -371,10 +495,10 @@ export default class ProductCenter extends React.Component {
               {featureContent}
             </p>
             <p className="formItem">
-              产品操作说明: <input type="file" name="fileInstructionUrl" />
+              产品操作说明：<input type="file" name="fileInstructionUrl" />
             </p>
             <p className="formItem">
-              产品主图片: <input type="file" name="fileImgUrl" />
+              产品主图片：<input type="file" name="fileImgUrl" />
             </p>
             <p className="formItem">
               产品操作讲解视频：<input type="file" name="fileVideoUrl" />
@@ -382,26 +506,31 @@ export default class ProductCenter extends React.Component {
             <p className="formItem">
               案例信息：<input type="file" name="fileApplicationUrl" />
             </p>
-            <p className="formItem btn">
-              <input type="submit" value="提交" />
-            </p>
+            <input
+              style={{ display: "none" }}
+              id="reset"
+              type="reset"
+              value="Reset"
+            />
           </form>
         </Modal>
-
-        {/*<Tabs defaultActiveKey="1">*/}
-        {/*<TabPane tab="洗地机系列" key="1">*/}
-        {/*<Table*/}
-        {/*columns={this.column}*/}
-        {/*Pagination={{*/}
-        {/*showQuickJumper: true,*/}
-        {/*showSizeChanger: true,*/}
-        {/*total: total,*/}
-        {/*}}*/}
-        {/*/>*/}
-        {/*</TabPane>*/}
-        {/*<TabPane tab="扫地机系列" key="2">Content of Tab Pane 2</TabPane>*/}
-        {/*<TabPane tab="擦地机系列" key="3">Content of Tab Pane 3</TabPane>*/}
-        {/*</Tabs>*/}
+        <Modal
+          title="添加技术参数"
+          visible={this.state.tecVisible}
+          onCancel={this.handleCancel.bind(null, "tec")}
+          onOk={this.addTecData}
+          confirmLoading={this.state.formLoading}
+        >
+          <TecForm ref="tec" data={{}} />
+        </Modal>
+        <Modal
+          title="技术参数详情"
+          footer={null}
+          visible={this.state.tecShow}
+          onCancel={this.handleCancel}
+        >
+          <TecTable tableList={tableList} goodsName={goodsName} />
+        </Modal>
       </div>
     );
   }

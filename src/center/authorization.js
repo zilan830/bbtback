@@ -4,7 +4,7 @@ import pic01 from "web_modules/images/pic01.png";
 import dataHoc from "web_modules/component/datas";
 
 @dataHoc({ url: "/right_issuer/list" }, response => {
-  return { data: response };
+  return { data: response.data };
 })
 export default class Authorization extends React.Component {
   constructor(props) {
@@ -12,7 +12,6 @@ export default class Authorization extends React.Component {
   }
 
   render() {
-    console.log("$PARANSdata", this.props.data);
     const data = this.props.data || [];
     const content = data.map((item, index) => {
       const list = [];

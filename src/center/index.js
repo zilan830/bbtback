@@ -15,11 +15,6 @@ const navColumn = [
         name: "授权服务中心",
         selected: true,
         component: "Authorization"
-      },
-      {
-        key: 11,
-        name: "招商加盟",
-        component: "Merchants"
       }
     ]
   }

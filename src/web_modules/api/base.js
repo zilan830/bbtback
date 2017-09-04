@@ -12,9 +12,9 @@ export default (url, data) => {
     .then(res => {
       if (res.data.code === 10000) {
         return res.data;
-      } else {
-        window.location.href = "#/home";
-      }
+      } else if (res.data.code === 10001) {
+        throw res.data.msg;
+      } else window.location.href = "#/home";
     })
     .catch(err => {
       console.log("$err", err);

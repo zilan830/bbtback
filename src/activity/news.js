@@ -11,7 +11,8 @@ export default class News extends React.Component {
     this.state = {
       newInfo: [],
       list: true,
-      data: []
+      data: [],
+      count: 0
     };
   }
 
@@ -22,36 +23,52 @@ export default class News extends React.Component {
 
   componentWillReceiveProps(Props) {
     console.log("$PARANSProps", Props);
+
+    if (Props.type !== this.props.type) {
+      const { type } = Props;
+      this.getData(type, 1);
+    }
+
     this.setState({
       list: true
     });
   }
 
-  onClick = (type, id) => {
-    console.log("$PARANSid", id);
-    if (type === "News") {
-      baseReq(`/news/newsDetail/${id}`)
-        .then(res => {
-          this.setState({
-            data: res
-          });
-        })
-        .catch(err => {
-          message.error(err);
+  onClick = id => {
+    baseReq(`/news/newsOrExhibitionDetail/${id}`)
+      .then(res => {
+        console.log("$PARANSres", res);
+        this.setState({
+          data: res.data
         });
-    }
+      })
+      .catch(err => {
+        message.error(err);
+      });
     this.setState({
       list: false
     });
   };
 
   getData = (type, page) => {
-    const currentPage = page - 1;
     if (type === "News") {
-      baseReq(`/news/newsList/${currentPage * 12}/12`)
+      baseReq(`/news/newsList/${page}/10`)
+        .then(res => {
+          console.log("$PARANSres", res);
+          this.setState({
+            newInfo: res.data,
+            count: res.count
+          });
+        })
+        .catch(err => {
+          message.error(err);
+        });
+    } else {
+      baseReq(`/news/exhibitionList/${page}/10`)
         .then(res => {
           this.setState({
-            newInfo: res
+            newInfo: res.data,
+            count: res.count
           });
         })
         .catch(err => {
@@ -68,28 +85,36 @@ export default class News extends React.Component {
 
   render() {
     const { type } = this.props;
-    const { newInfo, list } = this.state;
+    const { newInfo, list, count, data } = this.state;
+    console.log("$PARANSnewInfo", newInfo, count);
     let content = [];
-    const imgContent = [];
-    newInfo.map((item, index) => {
-      content.push(
-        <li key={`new${index}`} className="newsLi">
-          <a
-            href="javascript:void(0)"
-            onClick={() => {
-              this.onClick(type, item.id);
-            }}
-          >
-            {item.title}
-          </a>
-        </li>
+    let imgContent = [];
+    if (newInfo.length > 0) {
+      newInfo.map((item, index) => {
+        content.push(
+          <li key={`new${index}`} className="newsLi">
+            <a
+              href="javascript:void(0)"
+              onClick={() => {
+                this.onClick(item.id);
+              }}
+            >
+              {item.title}
+            </a>
+          </li>
+        );
+        imgContent.push(
+          <div key={`img${index}`}>
+            <img src={item.infoImg} />
+          </div>
+        );
+      });
+      imgContent = (
+        <Carousel autoplay>
+          {imgContent}
+        </Carousel>
       );
-      imgContent.push(
-        <div key={`img${index}`}>
-          <img src={item.infoImg} />
-        </div>
-      );
-    });
+    }
     return (
       <div>
         {list
@@ -100,7 +125,7 @@ export default class News extends React.Component {
               <Col span={12} className="mt10">
                 <Pagination
                   size="small"
-                  total={100}
+                  total={count}
                   onChange={(page, pageSize) => {
                     this.onChange(page, pageSize);
                   }}
@@ -114,21 +139,11 @@ export default class News extends React.Component {
                 className="mt10"
                 style={{ paddingTop: "45px", height: "100%" }}
               >
-                <Carousel autoplay>
-                  <div>
-                    <img src={pic01} />
-                  </div>
-                  <div>
-                    <img src={pic01} />
-                  </div>
-                  <div>
-                    <img src={pic01} />
-                  </div>
-                </Carousel>
+                {imgContent}
               </Col>
             </Row>
           : <Row className="whiteContent">
-              <NewDet type={type} id={1} />
+              <NewDet type={type} id={1} data={data} />
             </Row>}
       </div>
     );

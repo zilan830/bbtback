@@ -60,6 +60,26 @@
 }
 
 
+.productDetIntTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  td, th {
+    border-left: 1px solid #fff;
+    padding: 9px 16px;
+  }
+  th {
+    color: #fff;
+    background-color: #3E3A39;
+  }
+  tr {
+    &:nth-child(2n) {
+      background-color: #efefef;
+      color: #3E3A39;
+    }
+  }
+}
+
 //template
 .container {
   .header {
@@ -648,25 +668,6 @@
         background-color: #3E3A39;
         border-radius: 100%;
         margin-right: 5px;
-      }
-    }
-    .productDetIntTable {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      td, th {
-        border-left: 1px solid #fff;
-        padding: 9px 16px;
-      }
-      th {
-        color: #fff;
-        background-color: #3E3A39;
-      }
-      tr {
-        &:nth-child(2n) {
-          background-color: #efefef;
-          color: #3E3A39;
-        }
       }
     }
   }

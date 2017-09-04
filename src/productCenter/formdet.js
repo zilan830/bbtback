@@ -1,5 +1,6 @@
 import React from "react";
-import { Form } from "antd";
+import { Form, Upload, Icon, Modal, Input } from "antd";
+const FormItem = Form.Item;
 
 const formItemLayout = {
   labelCol: {
@@ -17,13 +18,72 @@ class FormDet extends React.Component {
     super(props);
   }
 
+  state = {
+    previewVisible: false,
+    previewImage: "",
+    fileList: []
+  };
+
+  handleCancel = () => this.setState({ previewVisible: false });
+
+  handlePreview = file => {
+    console.log("$PARANSfile", file);
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true
+    });
+  };
+
+  handleChange = ({ fileList }) => {
+    console.log("$PARANSfileList", fileList);
+    this.setState({ fileList });
+  };
+
   render() {
     const { data } = this.props.data;
+    const { previewVisible, previewImage, fileList } = this.state;
+    const uploadButton = (
+      <div>
+        <Icon type="plus" />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+    const { getFieldDecorator, getFieldValue } = this.props.form;
     return (
       <Form>
+        <div>
+          <Icon type="plus" />
+          <div className="ant-upload-text">Upload</div>
+        </div>
+        <div className="clearfix">
+          <Upload
+            listType="picture-card"
+            fileList={fileList}
+            onPreview={this.handlePreview}
+            onChange={this.handleChange}
+          >
+            {fileList.length >= 1 ? null : uploadButton}
+          </Upload>
+          <Modal
+            visible={previewVisible}
+            footer={null}
+            onCancel={this.handleCancel}
+          >
+            <img alt="example" style={{ width: "100%" }} src={previewImage} />
+          </Modal>
+        </div>
+        <FormItem {...formItemLayout} label="上传图片">
+          {getFieldDecorator("files", {
+            rules: [
+              {
+                required: true,
+                message: "请输入产品编号"
+              }
+            ]
+          })(<Input placeholder="请输入产品编号" />)}
+        </FormItem>
         <FormItem {...formItemLayout} label="产品编号">
           {getFieldDecorator("gid", {
-            initialValue: data.gid,
             rules: [
               {
                 type: "number",
@@ -38,7 +98,6 @@ class FormDet extends React.Component {
         </FormItem>
         <FormItem {...formItemLayout} label="产品型号">
           {getFieldDecorator("model", {
-            initialValue: data.model,
             rules: [
               {
                 type: "string"
@@ -52,7 +111,6 @@ class FormDet extends React.Component {
         </FormItem>
         <FormItem {...formItemLayout} label="产品功率">
           {getFieldDecorator("power", {
-            initialValue: data.power,
             rules: [
               {
                 type: "string"
@@ -66,7 +124,6 @@ class FormDet extends React.Component {
         </FormItem>
         <FormItem {...formItemLayout} label="产品分类">
           {getFieldDecorator("cat_id", {
-            initialValue: data.cat_id,
             rules: [
               {
                 type: "number",
@@ -81,7 +138,6 @@ class FormDet extends React.Component {
         </FormItem>
         <FormItem {...formItemLayout} label="产品特点">
           {getFieldDecorator("feature", {
-            initialValue: data.feature,
             rules: [
               {
                 type: "string"
@@ -95,7 +151,6 @@ class FormDet extends React.Component {
         </FormItem>
         <FormItem {...formItemLayout} label="产品优势">
           {getFieldDecorator("advantage", {
-            initialValue: data.feature,
             rules: [
               {
                 type: "string"
@@ -252,4 +307,6 @@ class FormDet extends React.Component {
   }
 }
 
-const FormDet = Form.create()(FormDet);
+const Det = Form.create()(FormDet);
+
+export default Det;
