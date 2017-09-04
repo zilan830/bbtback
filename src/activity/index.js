@@ -1,5 +1,6 @@
 import React from "react";
 import SmallNav from "web_modules/component/smallNav";
+import Editor from "web_modules/component/editor";
 import News from "./news";
 
 const navColumn = [
