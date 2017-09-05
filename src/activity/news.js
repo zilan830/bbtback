@@ -95,6 +95,7 @@ export default class News extends React.Component {
     this.setState({
       newVisible: false
     });
+    window.document.getElementById("reset").click();
   };
 
   newChange = text => {
@@ -135,7 +136,6 @@ export default class News extends React.Component {
   render() {
     const { type } = this.props;
     const { newInfo, list, count, data } = this.state;
-    console.log("$PARANSnewInfo", newInfo, count);
     let content = [];
     let imgContent = [];
     if (newInfo.length > 0) {

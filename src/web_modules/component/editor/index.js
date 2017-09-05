@@ -10,8 +10,8 @@ export default class Editor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.editor.txt.html(this.props.value);
+    if (nextProps !== this.props) {
+      this.editor.txt.html("");
     }
   }
 
@@ -27,7 +27,7 @@ export default class Editor extends Component {
     editor.customConfig.uploadImgServer =
       this.props.uploadImgServer || "http://47.92.123.27/upload";
     editor.create();
-    editor.txt.html(this.props.value);
+    editor.txt.html("");
   }
   componentWillUnmount() {
     // 销毁eidtor
