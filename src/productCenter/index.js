@@ -450,7 +450,7 @@ export default class ProductCenter extends React.Component {
                     </option>
                     <option value="多功能（650-840）m²/h">多功能（650-840）m²/h</option>
                   </select>
-                : <select name="type1">
+                : <select name="type2">
                     <option value="小型（2500-3200）m²/h">小型（2500-3200）m²/h</option>
                     <option value="中型（3900-5100）m²/h">中型（3900-5100）m²/h</option>
                     <option value="中型（4500-7000）m²/h">中型（4500-7000）m²/h</option>

@@ -22,7 +22,7 @@ export default class Editor extends Component {
     const editor = new WEditor(this.editorDom);
     this.editor = editor;
     // 使用 onchange 函数监听内容的变化，并实时更新到 state 中
-    editor.customConfig.onchange = this.props.onchange;
+    editor.customConfig.onchange = this.props.onChange;
     editor.customConfig.uploadFileName = this.props.uploadFileName || "files";
     editor.customConfig.uploadImgServer =
       this.props.uploadImgServer || "http://47.92.123.27/upload";

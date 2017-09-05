@@ -1,9 +1,10 @@
 import React from "react";
-import { Row, Col, Pagination, message, Carousel } from "antd";
+import { Row, Col, Pagination, message, Carousel, Button, Modal } from "antd";
 import { Link } from "react-router";
 import baseReq from "web_modules/api/base";
 import pic01 from "web_modules/images/pic01.png";
 import NewDet from "./newDet";
+import Edit from "web_modules/component/editor";
 
 export default class News extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class News extends React.Component {
       data: [],
       count: 0
     };
+    this.text = "";
   }
 
   componentDidMount() {
@@ -83,6 +85,53 @@ export default class News extends React.Component {
     this.getData(type, page);
   };
 
+  addNew = () => {
+    this.setState({
+      newVisible: true
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      newVisible: false
+    });
+  };
+
+  newChange = text => {
+    this.text = text;
+  };
+
+  pushNew = () => {
+    const { type } = this.props;
+    const form = window.document.getElementById("newForm");
+    const formdata = new FormData(form);
+    formdata.append("text", this.text);
+    if (type === "News") {
+      baseReq(`/boss/addNews`, formdata)
+        .then(res => {
+          console.log("$PARANSres", res);
+          message.success("添加成功");
+          window.document.getElementById("reset").click();
+          this.handleCancel();
+          this.getData("News", 1);
+        })
+        .catch(err => {
+          message.error(err);
+        });
+    } else {
+      baseReq(`/boss/addExhibition`, formdata)
+        .then(res => {
+          message.success("添加成功");
+          window.document.getElementById("reset").click();
+          this.handleCancel();
+          this.getData("Show", 1);
+        })
+        .catch(err => {
+          message.error(err);
+        });
+    }
+  };
+
   render() {
     const { type } = this.props;
     const { newInfo, list, count, data } = this.state;
@@ -117,6 +166,9 @@ export default class News extends React.Component {
     }
     return (
       <div>
+        <Button onClick={this.addNew} style={{ marginTop: "20px" }}>
+          添加
+        </Button>
         {list
           ? <Row className="whiteContent">
               <p className="title">
@@ -145,6 +197,34 @@ export default class News extends React.Component {
           : <Row className="whiteContent">
               <NewDet type={type} id={1} data={data} />
             </Row>}
+        <Modal
+          title="新建"
+          visible={this.state.newVisible}
+          onCancel={this.handleCancel}
+          onOk={this.pushNew}
+          width={1000}
+        >
+          <form id="newForm" encType="multipart/form-data">
+            <p className="formItem">
+              标题：<input type="text" name="title" />
+            </p>
+            <p className="formItem">
+              添加主图片：<input type="file" name="files" />
+            </p>
+            <p className="formItem">
+              <Edit
+                onChange={this.newChange}
+                ref={ref => (this.editorDom = ref)}
+              />
+            </p>
+            <input
+              style={{ display: "none" }}
+              id="reset"
+              type="reset"
+              value="Reset"
+            />
+          </form>
+        </Modal>
       </div>
     );
   }
