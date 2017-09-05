@@ -254,7 +254,6 @@ export default class ProductCenter extends React.Component {
         this.setState({
           formLoading: true
         });
-        console.log("$PARANSvalues", values);
         const index = values.index;
         const param = {};
         param.gid = this.state.currentId;
@@ -262,7 +261,7 @@ export default class ProductCenter extends React.Component {
         for (let i = 0; i < index; i++) {
           tec.push({
             name: values[`name${i}`],
-            item: values[`value${i}`],
+            item: values[`item${i}`],
             value: values[`value${i}`]
           });
         }
