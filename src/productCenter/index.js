@@ -218,6 +218,8 @@ export default class ProductCenter extends React.Component {
       });
   };
 
+  onEdit = record => {};
+
   operate = (e, record, index) => {
     return (
       <span>
@@ -227,6 +229,9 @@ export default class ProductCenter extends React.Component {
           onClick={this.addTec.bind(this, record)}
         >
           添加技术参数
+        </a>
+        <a href="javascript:void(0)" onClick={this.onEdit.bind(this, record)}>
+          编辑
         </a>
         <Popconfirm
           title="确定要删除？"
@@ -461,7 +466,7 @@ export default class ProductCenter extends React.Component {
               产品型号：<input type="text" name="model" placeholder="请输入产品型号" />
             </p>
             <p className="formItem">
-              产品功率：<input type="number" name="power" placeholder="请输入产品功率" />
+              产品功率：<input type="text" name="power" placeholder="请输入产品功率" />
             </p>
             <p className="formItem">
               产品系列：<select name="catId">

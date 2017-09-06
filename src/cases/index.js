@@ -2,7 +2,7 @@ import React from "react";
 import SmallNav from "web_modules/component/smallNav";
 import Picture from "./picture";
 import Video from "./video";
-import { Row, Col } from "antd";
+import { Button } from "antd";
 
 const navColumn = [
   {
@@ -41,6 +41,10 @@ export default class Cases extends React.Component {
     };
   }
 
+  componentWillReceiveProps(props) {
+    console.log("$PARANSprops", props);
+  }
+
   onClick = component => {
     this.setState({
       currentComponent: component
@@ -49,7 +53,7 @@ export default class Cases extends React.Component {
 
   render() {
     const { currentComponent } = this.state;
-    console.log("$currentComponent", currentComponent);
+    console.log("$PARANScurrentComponent", currentComponent);
     return (
       <div className="caseContainer">
         <div className="contentContainer">
