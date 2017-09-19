@@ -18,6 +18,7 @@ export default class Editor extends Component {
   render() {
     return <div ref={editorDom => (this.editorDom = editorDom)} />;
   }
+
   componentDidMount() {
     const editor = new WEditor(this.editorDom);
     this.editor = editor;
@@ -29,6 +30,7 @@ export default class Editor extends Component {
     editor.create();
     editor.txt.html("");
   }
+
   componentWillUnmount() {
     // 销毁eidtor
   }

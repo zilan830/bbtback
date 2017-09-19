@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Select } from "antd";
+import { Form, Input, Select } from "antd";
 const FormItem = Form.Item;
 const Option = Select.Option;
 

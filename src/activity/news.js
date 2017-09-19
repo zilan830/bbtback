@@ -1,8 +1,6 @@
 import React from "react";
 import { Row, Col, Pagination, message, Carousel, Button, Modal } from "antd";
-import { Link } from "react-router";
 import baseReq from "web_modules/api/base";
-import pic01 from "web_modules/images/pic01.png";
 import NewDet from "./newDet";
 import Edit from "web_modules/component/editor";
 

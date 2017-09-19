@@ -63,7 +63,7 @@ export default class SmallNav extends React.Component {
       breadColumn.shift();
     }
 
-    this.props.change(component);
+    this.props.change(component, navColumn);
 
     this.setState({
       navColumn,
@@ -72,7 +72,8 @@ export default class SmallNav extends React.Component {
   };
 
   render() {
-    const { navColumn, breadColumn } = this.state;
+    const { breadColumn } = this.state;
+    const { navColumn } = this.props;
     let navContent = [];
     navColumn.map(items => {
       if (items.children) {

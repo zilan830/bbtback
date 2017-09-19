@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
 import { Form, Icon, Input, Button, message } from "antd";
-import baseReq from "web_modules/api/base";
 import axios from "axios";
 const FormItem = Form.Item;
 
@@ -13,7 +11,7 @@ class Home extends React.Component {
         console.log("Received values of form: ", { user: values });
         axios({
           method: "post",
-          url: `http://47.92.123.27:80/login/doLogin?name=${values.name}&password=${values.password}`
+          url: `/login/doLogin?name=${values.name}&password=${values.password}`
         })
           .then(res => {
             if (res.data.code === 10000) {

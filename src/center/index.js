@@ -1,26 +1,17 @@
 import React from "react";
 import SmallNav from "web_modules/component/smallNav";
 import Authorization from "./authorization";
-import Merchants from "./merchants";
 
 const navColumn = [
   {
     key: 1,
     name: "授权服务中心",
     selected: true,
-    span: 24,
-    children: [
-      {
-        key: 10,
-        name: "授权服务中心",
-        selected: true,
-        component: "Authorization"
-      }
-    ]
+    span: 24
   }
 ];
 
-const breadColumn = ["授权服务中心", "招商加盟"];
+const breadColumn = ["授权服务中心"];
 
 const span = {
   nav: 6,
@@ -53,7 +44,6 @@ export default class Center extends React.Component {
             change={this.onClick}
           />
           {currentComponent === "Authorization" ? <Authorization /> : null}
-          {currentComponent === "Merchants" ? <Merchants /> : null}
         </div>
       </div>
     );

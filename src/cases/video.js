@@ -1,19 +1,15 @@
 import React from "react";
 import { Row, Col, Button, message, Modal } from "antd";
-import pic01 from "web_modules/images/pic01.png";
-import dataHoc from "web_modules/component/datas";
 import baseReq from "web_modules/api/base";
 
-// @dataHoc({ url: "/cases/casesList/1/0/500" }, response => {
-//   console.log("$PARANSresponse", response);
-//   return { data: response.data };
-// })
 export default class Video extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       info: 0,
-      visible: false
+      visible: false,
+      data: [],
+      loading: false
     };
   }
 
@@ -50,30 +46,38 @@ export default class Video extends React.Component {
     const form = window.document.getElementById("newForm");
     const formdata = new FormData(form);
     formdata.append("type", 1);
+    this.setState({
+      loading: true
+    });
     baseReq(`/boss/addCases`, formdata)
       .then(res => {
         message.success("操作成功");
         this.setState({
-          visible: false
+          visible: false,
+          loading: false
         });
         window.document.getElementById("reset").click();
         this.getData();
       })
       .catch(err => {
         message.error(err);
+        this.setState({
+          loading: false
+        });
       });
   };
 
   onCancel = () => {
     window.document.getElementById("reset").click();
     this.setState({
-      visible: false
+      visible: false,
+      loading: false
     });
   };
 
   render() {
     const data = this.state.data || [];
-    const { info } = this.state;
+    const { infom, loading } = this.state;
     const liContent = [];
     if (data.length > 0) {
       data.map((item, index) => {
@@ -121,6 +125,7 @@ export default class Video extends React.Component {
           onCancel={this.onCancel}
           onOk={this.onOk}
           width={500}
+          confirmLoading={loading}
         >
           <form id="newForm" encType="multipart/form-data">
             <p className="formItem">

@@ -1,8 +1,6 @@
 import React from "react";
 import {
   message,
-  Row,
-  Col,
   Table,
   Tabs,
   Dropdown,
@@ -11,11 +9,8 @@ import {
   Modal,
   Icon
 } from "antd";
-import { Link } from "react-router";
 import baseReq from "web_modules/api/base";
 import TecForm from "./tecForm";
-import FormDet from "./formdet";
-const TabPane = Tabs.TabPane;
 import TecTable from "./table";
 
 export default class ProductCenter extends React.Component {

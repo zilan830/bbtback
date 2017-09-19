@@ -3,10 +3,10 @@ import config from "../config";
 import axios from "axios";
 
 export default (url, data) => {
-  console.log("$Purl", url);
   return axios({
     method: "post",
-    url: `http://47.92.123.27:80${url}`,
+    // url: `http://47.92.123.27:80${url}`,
+    url,
     data
   })
     .then(res => {

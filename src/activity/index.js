@@ -1,23 +1,6 @@
 import React from "react";
 import SmallNav from "web_modules/component/smallNav";
-import Editor from "web_modules/component/editor";
 import News from "./news";
-
-const navColumn = [
-  {
-    key: 1,
-    name: "企业新闻",
-    selected: true,
-    span: 12,
-    component: "News"
-  },
-  {
-    key: 2,
-    name: "展会风采",
-    span: 12,
-    component: "Show"
-  }
-];
 
 const breadColumn = ["公司动态", "企业新闻"];
 
@@ -29,6 +12,21 @@ const span = {
 export default class Activity extends React.Component {
   constructor(props) {
     super(props);
+    this.navColumn = [
+      {
+        key: 1,
+        name: "企业新闻",
+        selected: true,
+        span: 12,
+        component: "News"
+      },
+      {
+        key: 2,
+        name: "展会风采",
+        span: 12,
+        component: "Show"
+      }
+    ];
     this.state = {
       currentComponent: "News"
     };
@@ -46,12 +44,11 @@ export default class Activity extends React.Component {
       <div className="activityContainer">
         <div className="contentContainer">
           <SmallNav
-            navColumn={navColumn}
+            navColumn={this.navColumn}
             breadColumn={breadColumn}
             span={span}
             change={this.onClick}
           />
-          {}
           <News list={true} type={currentComponent} />
         </div>
       </div>

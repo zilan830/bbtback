@@ -2,29 +2,6 @@ import React from "react";
 import SmallNav from "web_modules/component/smallNav";
 import Picture from "./picture";
 import Video from "./video";
-import { Button } from "antd";
-
-const navColumn = [
-  {
-    key: 1,
-    name: "案例集锦",
-    selected: true,
-    span: 24,
-    children: [
-      {
-        key: 10,
-        name: "案例集锦-图片",
-        selected: true,
-        component: "Picture"
-      },
-      {
-        key: 11,
-        name: "案例集锦-视频",
-        component: "Video"
-      }
-    ]
-  }
-];
 
 const breadColumn = ["案例集锦", "案例集锦-图片"];
 
@@ -36,13 +13,30 @@ const span = {
 export default class Cases extends React.Component {
   constructor(props) {
     super(props);
+    this.nav = [
+      {
+        key: 1,
+        name: "案例集锦",
+        selected: true,
+        span: 24,
+        children: [
+          {
+            key: 10,
+            name: "案例集锦-图片",
+            selected: true,
+            component: "Picture"
+          },
+          {
+            key: 11,
+            name: "案例集锦-视频",
+            component: "Video"
+          }
+        ]
+      }
+    ];
     this.state = {
       currentComponent: "Picture"
     };
-  }
-
-  componentWillReceiveProps(props) {
-    console.log("$PARANSprops", props);
   }
 
   onClick = component => {
@@ -53,12 +47,11 @@ export default class Cases extends React.Component {
 
   render() {
     const { currentComponent } = this.state;
-    console.log("$PARANScurrentComponent", currentComponent);
     return (
       <div className="caseContainer">
         <div className="contentContainer">
           <SmallNav
-            navColumn={navColumn}
+            navColumn={this.nav}
             breadColumn={breadColumn}
             span={span}
             change={this.onClick}

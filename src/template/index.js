@@ -5,12 +5,6 @@ import { Row, Col } from "antd";
 import logoImg from "web_modules/images/logo.png";
 
 class Template extends React.Component {
-  // getChildContext() {
-  //   return {
-  //     router:this.context.router
-  //   };
-  // }
-
   constructor(props) {
     super(props);
     const column = [
@@ -39,9 +33,6 @@ class Template extends React.Component {
         key: "center"
       }
     ];
-    // if(this.context.router){
-    //   console.log("this.context.router",this.context.router)
-    // }
     this.state = {
       column
     };
@@ -65,13 +56,6 @@ class Template extends React.Component {
         break;
       }
     }
-    // for(let i=0; i<column.length; i++){
-    //   if(route.indexOf(column[i].key) > -1){
-    //     column[i].selected = true;
-    //   }else {
-    //     column[i].selected = false;
-    //   }
-    // }
     this.setState({
       column
     });
@@ -88,14 +72,6 @@ class Template extends React.Component {
         break;
       }
     }
-    //为了兼容ie9
-    // for(let i=0; i<column.length; i++){
-    //   if(column[i].key === key){
-    //     column[i].selected = true;
-    //   }else {
-    //     column[i].selected = false;
-    //   }
-    // }
 
     this.setState({
       column
@@ -176,13 +152,5 @@ class Template extends React.Component {
     );
   }
 }
-
-// Template.contentType = {
-//   router: React.PropTypes.string,
-// };
-//
-// Template.childContextTypes = {
-//   router:React.PropTypes.string,
-// };
 
 export default Template;
