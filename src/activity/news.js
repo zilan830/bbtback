@@ -11,7 +11,8 @@ export default class News extends React.Component {
       newInfo: [],
       list: true,
       data: [],
-      count: 0
+      count: 0,
+      canAdd: false
     };
     this.text = "";
   }
@@ -57,7 +58,8 @@ export default class News extends React.Component {
           console.log("$PARANSres", res);
           this.setState({
             newInfo: res.data,
-            count: res.count
+            count: res.count,
+            list: true
           });
         })
         .catch(err => {
@@ -68,7 +70,8 @@ export default class News extends React.Component {
         .then(res => {
           this.setState({
             newInfo: res.data,
-            count: res.count
+            count: res.count,
+            list: true
           });
         })
         .catch(err => {
@@ -105,29 +108,54 @@ export default class News extends React.Component {
     const form = window.document.getElementById("newForm");
     const formdata = new FormData(form);
     formdata.append("text", this.text);
-    if (type === "News") {
-      baseReq(`/boss/addNews`, formdata)
-        .then(res => {
-          console.log("$PARANSres", res);
-          message.success("添加成功");
-          window.document.getElementById("reset").click();
-          this.handleCancel();
-          this.getData("News", 1);
-        })
-        .catch(err => {
-          message.error(err);
-        });
+    const title = form.title.value;
+    const { canAdd } = this.state;
+    if (!canAdd || title.length === 0) {
+      message.warn("请编辑标题");
     } else {
-      baseReq(`/boss/addExhibition`, formdata)
-        .then(res => {
-          message.success("添加成功");
-          window.document.getElementById("reset").click();
-          this.handleCancel();
-          this.getData("Show", 1);
-        })
-        .catch(err => {
-          message.error(err);
-        });
+      // formdata.append("title", this.title);
+      if (type === "News") {
+        baseReq(`/boss/addNews`, formdata)
+          .then(res => {
+            this.title = "";
+            message.success("添加成功");
+            window.document.getElementById("reset").click();
+            this.handleCancel();
+            this.getData("News", 1);
+            this.setState({
+              canAdd: false
+            });
+          })
+          .catch(err => {
+            message.error(err);
+          });
+      } else {
+        baseReq(`/boss/addExhibition`, formdata)
+          .then(res => {
+            this.title = "";
+            message.success("添加成功");
+            window.document.getElementById("reset").click();
+            this.handleCancel();
+            this.getData("Show", 1);
+            this.setState({
+              canAdd: false
+            });
+          })
+          .catch(err => {
+            message.error(err);
+          });
+      }
+    }
+  };
+
+  onBlur = e => {
+    if (e.target.value.length > 0) {
+      this.title = e.target.value;
+      this.setState({
+        canAdd: true
+      });
+    } else {
+      message.warn("请编辑标题");
     }
   };
 
@@ -164,11 +192,11 @@ export default class News extends React.Component {
     }
     return (
       <div>
-        <Button onClick={this.addNew} style={{ marginTop: "20px" }}>
-          添加
-        </Button>
         {list
           ? <Row className="whiteContent">
+              <Button onClick={this.addNew} style={{ marginBottom: "20px" }}>
+                添加
+              </Button>
               <p className="title">
                 {type === "News" ? "企业新闻" : "展会风采"} News
               </p>
@@ -193,7 +221,7 @@ export default class News extends React.Component {
               </Col>
             </Row>
           : <Row className="whiteContent">
-              <NewDet type={type} id={1} data={data} />
+              <NewDet type={type} id={1} data={data} refresh={this.getData} />
             </Row>}
         <Modal
           title="新建"
@@ -204,7 +232,12 @@ export default class News extends React.Component {
         >
           <form id="newForm" encType="multipart/form-data">
             <p className="formItem">
-              标题：<input type="text" name="title" />
+              标题：<input
+                type="text"
+                name="title"
+                style={{ width: "100%" }}
+                onBlur={this.onBlur}
+              />
             </p>
             <p className="formItem">
               添加主图片：<input type="file" name="files" />

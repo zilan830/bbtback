@@ -28,7 +28,9 @@ export default class Editor extends Component {
     editor.customConfig.uploadImgServer =
       this.props.uploadImgServer || "http://47.92.123.27/upload";
     editor.create();
-    editor.txt.html("");
+    if (this.props.text) {
+      editor.txt.html(this.props.text);
+    }
   }
 
   componentWillUnmount() {
