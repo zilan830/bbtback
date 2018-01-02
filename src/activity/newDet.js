@@ -8,7 +8,8 @@ export default class NewsDet extends React.Component {
     super(props);
     this.state = {
       newInfo: [],
-      isEdit: false
+      isEdit: false,
+      title: ""
     };
     this.text = "";
   }
@@ -25,10 +26,15 @@ export default class NewsDet extends React.Component {
     window.document.getElementById("edit").innerHTML = data.text;
     this.text = data.text;
     console.log("$PARANSthis.text", this.text);
+    this.setState({
+      title: data.title,
+      text: data.text
+    });
   };
 
   editNew = () => {
     const { isEdit } = this.state;
+    console.log("$PARANSthis.text", this.text);
     this.setState({
       isEdit: !isEdit
     });
@@ -77,9 +83,17 @@ export default class NewsDet extends React.Component {
     }
   };
 
+  onChange = e => {
+    const title = e.target.value;
+    this.setState({
+      title
+    });
+  };
+
   render() {
     const { data } = this.props;
-    const { isEdit } = this.state;
+    console.log("$PARANSthis.state", this.state, "data", data.text);
+    const { isEdit, title } = this.state;
     return (
       <div>
         <Button onClick={this.editNew} style={{ position: "fixed" }}>
@@ -104,7 +118,10 @@ export default class NewsDet extends React.Component {
                 type="text"
                 name="title"
                 style={{ width: "100%" }}
-                defaultValue={data.title}
+                value={title}
+                onChange={e => {
+                  this.onChange(e);
+                }}
               />
             </p>
             <p className="formItem">
@@ -121,11 +138,7 @@ export default class NewsDet extends React.Component {
               </div>
             </p>
             <p className="formItem">
-              <Edit
-                onChange={this.newChange}
-                text={data.text}
-                ref={ref => (this.editorDom = ref)}
-              />
+              <Edit onChange={this.newChange} text={data.text} />
             </p>
             <input
               style={{ display: "none" }}

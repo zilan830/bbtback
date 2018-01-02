@@ -382,7 +382,8 @@ export default class ProductCenter extends React.Component {
       tecVisible: false,
       formLoading: false,
       tecShow: false,
-      editVisible: false
+      editVisible: false,
+      featureContent: []
     });
     switch (tec) {
       case "tec":
