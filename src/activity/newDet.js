@@ -55,6 +55,9 @@ export default class NewsDet extends React.Component {
     const { type, data } = this.props;
     const form = window.document.getElementById("newForm");
     const formdata = new FormData(form);
+    const { title } = this.state;
+    formdata.delete("title");
+    formdata.append("title", title);
     formdata.append("text", this.text);
     formdata.append("id", data.id);
     if (type === "News") {
@@ -116,7 +119,6 @@ export default class NewsDet extends React.Component {
             <p className="formItem">
               标题：<input
                 type="text"
-                name="title"
                 style={{ width: "100%" }}
                 value={title}
                 onChange={e => {

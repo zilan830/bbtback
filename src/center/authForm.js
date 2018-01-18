@@ -67,6 +67,26 @@ class FormDet extends React.Component {
             ]
           })(<Input placeholder="请输入公司名" />)}
         </FormItem>
+        <FormItem {...formItemLayout} label="公司地址">
+          {getFieldDecorator(`address`, {
+            rules: [
+              {
+                required: true,
+                message: "请输入公司地址"
+              }
+            ]
+          })(<Input placeholder="请输入公司地址" />)}
+        </FormItem>
+        <FormItem {...formItemLayout} label="公司电话">
+          {getFieldDecorator(`phone`, {
+            rules: [
+              {
+                required: true,
+                message: "请输入公司电话"
+              }
+            ]
+          })(<Input placeholder="请输入公司电话" />)}
+        </FormItem>
       </Form>
     );
   }
